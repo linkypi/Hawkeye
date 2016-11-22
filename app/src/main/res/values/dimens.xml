@@ -1,0 +1,18 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- 字体大小 -->
+    <dimen name="little_12">12.0sp</dimen>
+    <dimen name="little_13">13.0sp</dimen>
+    <dimen name="little_14">14.0sp</dimen>
+    <dimen name="little_15">15.0sp</dimen>
+    <dimen name="little_16">16.0sp</dimen>
+    <dimen name="little_17">17.0sp</dimen>
+    <dimen name="little_18">18.0sp</dimen>
+    <dimen name="little_19">19.0sp</dimen>
+    <dimen name="little_20">20.0sp</dimen>
+    <dimen name="little_22">22.0sp</dimen>
+</resources>
