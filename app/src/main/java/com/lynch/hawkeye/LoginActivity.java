@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,20 +34,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lynch.hawkeye.config.Credential;
 import com.lynch.hawkeye.utils.SystemBarTintManager;
 import com.lynch.hawkeye.utils.Validator;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -70,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private UMShareAPI mShareAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +109,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        try {
 
-        //setStatuBarAndTitleBarTotheSame();
+            PlatformConfig.setWeixin(Credential.WX_APPID, Credential.WX_APPSECRET);
+            mShareAPI = UMShareAPI.get(this);
+            //setStatuBarAndTitleBarTotheSame();
+        } catch (Exception ex) {
+            Log.d("umeng", "ex: "+ex.getCause());
+        }
+
     }
 
     /**
@@ -189,7 +204,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -354,6 +368,86 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
+
+    public void onThirdLogin(View view)
+    {
+        switch (view.getId()){
+            case R.id.btn_weibologin:
+                getAuth(SHARE_MEDIA.SINA);
+                break;
+            case R.id.btn_qqlogin:
+                getAuth(SHARE_MEDIA.QZONE);
+                break;
+            case R.id.btn_wxlogin:
+                getAuth(SHARE_MEDIA.WEIXIN);
+                break;
+        }
+    }
+
+    // 第三方授权
+    public void getAuth(final SHARE_MEDIA media_type) {
+
+        mShareAPI.doOauthVerify(this, media_type, new UMAuthListener() {
+
+            @Override
+            public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+
+                Log.i("auth info", "vaule:" + data.toString());
+                if (data != null) {
+                    showMsg("授权成功");
+                    getThirdInfo(media_type, data.get("expires_in"));
+                } else {
+                    showMsg("授权失败");
+                    //dismissProgress();
+                }
+            }
+
+            @Override
+            public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+                //dismissProgress();
+                showMsg("授权失败");
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA platform, int action) {
+                showMsg("授权取消");//Authorize cancel
+                //dismissProgress();
+            }
+        });
+    }
+
+
+    // 获取第三方资料
+    public void getThirdInfo(final SHARE_MEDIA media_type, final String expires_in) {
+        mShareAPI.getPlatformInfo(this, media_type, new UMAuthListener() {
+
+            @Override
+            public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+
+                Log.i("auth user info", "vaule:" + data.toString());
+                if (data != null) {
+                    showMsg("授权成功");
+                    //getThirdInfo(type, share_MEDIA, value.getString("expires_in"));
+                } else {
+                    showMsg("授权失败");
+                    //dismissProgress();
+                }
+            }
+
+            @Override
+            public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+                //dismissProgress();
+                showMsg("授权失败");
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA platform, int action) {
+                showMsg("授权取消");//Authorize cancel
+                //dismissProgress();
+            }
+        });
+    }
+
 
     /**
      * Represents an asynchronous login/registration task used to authenticate

@@ -47,8 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/get_valid_code"
-                android:textSize="@dimen/little_14" />
+                android:text="@string/get_valid_code" />
         </LinearLayout>
 
         <ImageView
@@ -119,8 +118,7 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
-                android:singleLine="true"
-                android:textSize="@dimen/little_16" />
+                android:singleLine="true"/>
         </LinearLayout>
 
         <ImageView
@@ -171,7 +169,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="@string/ok"
-            android:textSize="@dimen/little_16" />
+            android:text="@string/ok"/>
     </LinearLayout>
 </LinearLayout>

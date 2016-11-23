@@ -73,7 +73,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         if (tag == 1) {
             ((Activity) context).finish();
         } else {
-            Intent intent = new Intent(context, RegisterActivity.class);
+            Intent intent = new Intent(context, LoginActivity.class);
             context.startActivity(intent);
             ((Activity) context).finish();
         }
