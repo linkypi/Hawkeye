@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center|left"
+        android:layout_height="40dp">
+    <LinearLayout
+        android:layout_marginLeft="0dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+        <TextView
+            android:layout_marginRight="-36dp"
+            android:textAlignment="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:textSize="18dp"
+            android:text="@string/app_name"
+            />
+    </LinearLayout>
+        <ImageButton
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_32"/>
+    </LinearLayout>
+</LinearLayout>

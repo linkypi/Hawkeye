@@ -38,13 +38,9 @@
             android:value="5835386f717c196464000b11" />
 
         <activity android:name=".MainActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
-
+        <activity android:name=".Main2Activity">
+        </activity>
         <!-- 欢迎页 -->
         <activity
             android:name=".SplashActivity"
@@ -69,26 +65,26 @@
 
         <!-- *************************    分享相关的注册 START **************************** -->
         <!-- 腾讯SSO授权的Activity注册 -->
-        <!-- <activity -->
-        <!-- android:name="com.tencent.tauth.AuthActivity" -->
-        <!-- android:launchMode="singleTask" -->
-        <!-- android:noHistory="true" > -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.VIEW" /> -->
+         <activity
+         android:name="com.tencent.tauth.AuthActivity"
+         android:launchMode="singleTask"
+         android:noHistory="true" >
+         <intent-filter>
+         <action android:name="android.intent.action.VIEW" />
 
 
-        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-        <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+         <category android:name="android.intent.category.DEFAULT" />
+         <category android:name="android.intent.category.BROWSABLE" />
 
 
-        <!-- <data android:scheme="tencent100424468" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name="com.tencent.connect.common.AssistActivity" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
-        <!-- android:configChanges="orientation|keyboardHidden|screenSize"/> -->
+         <data android:scheme="tencent100424468" />
+         </intent-filter>
+         </activity>
+         <activity
+         android:name="com.tencent.connect.common.AssistActivity"
+         android:screenOrientation="portrait"
+         android:theme="@android:style/Theme.Translucent.NoTitleBar"
+         android:configChanges="orientation|keyboardHidden|screenSize"/>
         <!-- 微信回调activity -->
         <activity
             android:name=".wxapi.WXEntryActivity"

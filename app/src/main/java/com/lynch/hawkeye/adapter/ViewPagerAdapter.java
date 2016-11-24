@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.lynch.hawkeye.LoginActivity;
+import com.lynch.hawkeye.Main2Activity;
 import com.lynch.hawkeye.MainActivity;
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.RegisterActivity;
@@ -73,7 +74,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         if (tag == 1) {
             ((Activity) context).finish();
         } else {
-            Intent intent = new Intent(context, MainActivity.class);
+            Intent intent = new Intent(context, Main2Activity.class);
             context.startActivity(intent);
             ((Activity) context).finish();
         }
