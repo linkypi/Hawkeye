@@ -1,11 +1,14 @@
 package com.lynch.hawkeye;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.lynch.hawkeye.config.Credential;
 import com.umeng.socialize.PlatformConfig;
@@ -30,7 +33,15 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
 
         mContext = this;
-
+        ImageButton btn_register_back = (ImageButton) findViewById(R.id.btn_register_back);
+        btn_register_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,LoginActivity.class);
+                startActivity(intent);
+                ((Activity)mContext).finish();
+            }
+        });
     }
 
 

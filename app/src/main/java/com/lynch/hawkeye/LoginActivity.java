@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -31,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +74,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private Context mContext = null;
 
     // UI references.
     private AutoCompleteTextView mAccountView;
@@ -104,6 +108,18 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        /*login back*/
+        mContext = this;
+        ImageButton btn_login_back = (ImageButton) findViewById(R.id.btn_login_back);
+        btn_login_back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,MainActivity.class);
+                startActivity(intent);
+                ((Activity)mContext).finish();
             }
         });
 

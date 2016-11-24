@@ -27,7 +27,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.umeng.analytics:analytics:latest.integration'
+    //compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'
     compile files('src/main/java/com/lynch/hawkeye/libs/SocialSDK_QQZone_3.jar')
     compile files('src/main/java/com/lynch/hawkeye/libs/SocialSDK_Sina.jar')
     compile files('src/main/java/com/lynch/hawkeye/libs/SocialSDK_WeiXin_2.jar')
