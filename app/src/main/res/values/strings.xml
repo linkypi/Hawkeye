@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Hawkeye</string>
-    <string name="title_activity_guide">GuideActivity</string>
     <string name="guide_btn">立即体验</string>
     <string name="title_activity_login">登录</string>
 
@@ -21,6 +20,7 @@
     <string name="error_account_required">账号不能为空</string>
     <string name="error_password_notempty">请输入密码</string>
 
+    <string name="title_activity_guide">GuideActivity</string>
     <string name="error_invalid_email">邮箱有误</string>
     <string name="error_field_required">该值不能为空</string>
     <string name="success_login">登录成功</string>
@@ -32,8 +32,8 @@
     <string name="set_password">设置您的密码</string>
     <string name="set_nickname">设置您的昵称</string>
     <string name="ok">确定</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <!--<string name="permission_rationale">"Contacts permissions are needed for providing email-->
+        <!--completions."-->
+    <!--</string>-->
 
 </resources>

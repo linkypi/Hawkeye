@@ -5,6 +5,6 @@ package com.lynch.hawkeye.config;
  */
 
 public class Credential {
-    public static String WX_APPID = "wx23dc272098c0f7d0";
-    public static String WX_APPSECRET = "bbd951368b12866c249d39c99d5f60c5";
+    public static String WX_APPID = "wx60e269e9e2c3e45f";
+    public static String WX_APPSECRET = "c8d9b4078480098ee76b549c8c1c070a";
 }
