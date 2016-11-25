@@ -1,0 +1,45 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    tools:context="com.lynch.hawkeye.fragment.MineFragment">
+
+    <!-- 没有指定圆形ImageView属性时，默认没有外边圆颜色 -->
+    <!-- 需要将图片资源自定为src ，或在程序中setImageResource(res) 不能设置background为图片，这样不能达到圆形效果-->
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.lynch.hawkeye.component.RoundImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/male_48"
+        />
+
+</LinearLayout>
+
+
+    <!-- border_outside_color 外部圆圈的颜色 -->
+    <!-- border_inside_color 内部部圆圈的颜色 -->
+    <!-- border_thickness 外圆和内圆的宽度 -->
+    <!--<com.dxd.roundimageview.RoundImageView-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:src="@drawable/img"-->
+        <!--imagecontrol:border_inside_color="#bc0978"-->
+        <!--imagecontrol:border_outside_color="#ba3456"-->
+        <!--imagecontrol:border_thickness="1dp"-->
+        <!--/>-->
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="图书" />
+
+</FrameLayout>

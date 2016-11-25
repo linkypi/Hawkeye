@@ -31,4 +31,11 @@
     <string name="set_password">set your password</string>
     <string name="set_nickname">set your nickname</string>
     <string name="ok">OK</string>
+
+    <!--主页下方标题栏-->
+    <string name="feathered">feathered</string>
+    <string name="find">find</string>
+    <string name="favorites">favorites</string>
+    <string name="mine">mine</string>
+
 </resources>

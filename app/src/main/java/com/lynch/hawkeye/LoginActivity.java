@@ -128,6 +128,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         try {
 
             PlatformConfig.setWeixin(Credential.WX_APPID, Credential.WX_APPSECRET);
+            PlatformConfig.setSinaWeibo(Credential.Weibo_APPID, Credential.Wweibo_APPSECRET);
             mShareAPI = UMShareAPI.get(this);
             //setStatuBarAndTitleBarTotheSame();
         } catch (Exception ex) {
