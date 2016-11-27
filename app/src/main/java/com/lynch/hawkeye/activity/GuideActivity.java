@@ -1,4 +1,4 @@
-package com.lynch.hawkeye;
+package com.lynch.hawkeye.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +14,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.adapter.ViewPagerAdapter;
 
 import java.util.ArrayList;

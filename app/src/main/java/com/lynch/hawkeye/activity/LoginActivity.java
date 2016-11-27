@@ -1,4 +1,4 @@
-package com.lynch.hawkeye;
+package com.lynch.hawkeye.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
 import android.content.CursorLoader;
@@ -33,11 +31,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.config.Credential;
+import com.lynch.hawkeye.utils.AppContext;
 import com.lynch.hawkeye.utils.SystemBarTintManager;
 import com.lynch.hawkeye.utils.Validator;
 import com.umeng.socialize.PlatformConfig;
@@ -87,6 +87,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mAccountView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -113,8 +114,8 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
         /*login back*/
         mContext = this;
-        ImageButton btn_login_back = (ImageButton) findViewById(R.id.btn_login_back);
-        btn_login_back.setOnClickListener(new OnClickListener() {
+        LinearLayout layout_login_back = (LinearLayout) findViewById(R.id.layout_login_back);
+        layout_login_back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext,MainActivity.class);
@@ -122,11 +123,20 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
                 ((Activity)mContext).finish();
             }
         });
+        /* register */
+        Button btn_register = (Button)findViewById(R.id.btn_register);
+        btn_register.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+                //overridePendingTransition (R.anim.in_from_right, R.anim.out_to_right);
+            }
+        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         try {
-
             PlatformConfig.setWeixin(Credential.WX_APPID, Credential.WX_APPSECRET);
             PlatformConfig.setSinaWeibo(Credential.Weibo_APPID, Credential.Wweibo_APPSECRET);
             mShareAPI = UMShareAPI.get(this);
@@ -434,7 +444,6 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         });
     }
 
-
     // 获取第三方资料
     public void getThirdInfo(final SHARE_MEDIA media_type, final String expires_in) {
         mShareAPI.getPlatformInfo(this, media_type, new UMAuthListener() {
@@ -465,7 +474,6 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             }
         });
     }
-
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
@@ -510,6 +518,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             showProgress(false);
 
             if (success) {
+                AppContext.hasLogin = true;
                 Toast.makeText(getApplicationContext(),getString(R.string.success_login),
                         Toast.LENGTH_SHORT).show();
                 finish();

@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:clipToPadding="true"
-    tools:context="com.lynch.hawkeye.LoginActivity">
+    tools:context="com.lynch.hawkeye.activity.LoginActivity"
+    android:orientation="vertical">
 
     <include layout="@layout/layout_login_header"/>
 
@@ -96,7 +96,7 @@
                         android:text="@string/action_sign_in"
                         android:textStyle="bold" />
                     <Button
-                        android:id="@+id/register_button"
+                        android:id="@+id/btn_register"
                         style="?android:textAppearanceSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

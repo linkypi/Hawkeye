@@ -7,7 +7,7 @@
     android:background="@color/splash"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.lynch.hawkeye.SplashActivity">
+    tools:context="com.lynch.hawkeye.activity.SplashActivity">
 
     <TextView
         android:layout_width="wrap_content"

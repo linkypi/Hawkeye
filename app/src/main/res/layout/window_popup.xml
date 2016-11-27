@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:background="@drawable/shape_corner"
+            android:id="@+id/pop_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:background="@null"
+                android:id="@+id/btn_take_photo"
+                android:textColor="#147de6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/take_photo"/>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#c7c1c1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:textSize="1dp"/>
+            <Button
+                android:textColor="#147de6"
+                android:background="@null"
+                android:id="@+id/btn_select_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/select_photo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <Button
+                android:textColor="#147de6"
+                android:background="@drawable/shape_corner"
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

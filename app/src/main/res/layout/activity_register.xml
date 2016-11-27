@@ -6,8 +6,21 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="true"
-    tools:context="com.lynch.hawkeye.RegisterActivity">
+    tools:context="com.lynch.hawkeye.activity.RegisterActivity">
     <include layout="@layout/layout_register_header"/>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="invisible"
+            />
+    </LinearLayout>
+
     <LinearLayout
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -34,7 +47,8 @@
                 />
 
             <EditText
-                android:id="@+id/edRegPhone"
+                android:numeric="integer"
+                android:id="@+id/ed_reg_phone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,7 +59,7 @@
                 android:textSize="@dimen/little_16" />
 
             <Button
-                android:id="@+id/tvRegCode"
+                android:id="@+id/btn_getcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -54,6 +68,7 @@
         </LinearLayout>
 
         <ImageView
+            android:background="#a6a7a7"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="30dp"
@@ -65,12 +80,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="10dp" >
 
             <EditText
-                android:id="@+id/edRegCode"
-                android:layout_width="0dp"
+                android:numeric="integer"
+                android:id="@+id/ed_reg_code"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
@@ -81,15 +97,11 @@
                 android:singleLine="true"
                 android:textSize="@dimen/little_16" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                />
 
         </LinearLayout>
 
         <ImageView
+            android:background="#a6a7a7"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="30dp"
@@ -104,28 +116,24 @@
             android:orientation="horizontal"
             android:padding="10dp" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                />
-
             <EditText
-                android:id="@+id/edRegPass"
+                android:id="@+id/ed_reg_pass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="@string/set_nickname"
+                android:hint="@string/set_password"
                 android:inputType="textPassword"
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:singleLine="true"
                 android:textSize="@dimen/little_16" />
+
         </LinearLayout>
 
         <ImageView
+            android:background="#a6a7a7"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="30dp"
@@ -140,14 +148,9 @@
             android:orientation="horizontal"
             android:padding="10dp" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                />
 
             <EditText
-                android:id="@+id/edRegNick"
+                android:id="@+id/ed_reg_nick"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -162,14 +165,18 @@
         </LinearLayout>
 
         <ImageView
+            android:background="#a6a7a7"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp" />
+            android:layout_marginRight="30dp"
+            />
 
         <Button
-            android:id="@+id/RegisterBtn"
-            android:layout_width="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"

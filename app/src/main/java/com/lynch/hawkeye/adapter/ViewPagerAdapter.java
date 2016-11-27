@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 
-import com.lynch.hawkeye.MainActivity;
+import com.lynch.hawkeye.activity.MainActivity;
 import com.lynch.hawkeye.R;
 
 import java.util.List;

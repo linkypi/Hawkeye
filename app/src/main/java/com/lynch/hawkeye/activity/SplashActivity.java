@@ -1,15 +1,14 @@
-package com.lynch.hawkeye;
+package com.lynch.hawkeye.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.utils.Utils;
-import com.umeng.socialize.UMShareAPI;
 
 public class SplashActivity extends Activity {
 

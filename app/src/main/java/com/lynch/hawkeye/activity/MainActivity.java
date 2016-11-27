@@ -1,4 +1,4 @@
-package com.lynch.hawkeye;
+package com.lynch.hawkeye.activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -8,12 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.fragment.MineFragment;
 import com.lynch.hawkeye.fragment.FavoritesFragment;
 import com.lynch.hawkeye.fragment.FindFragment;
 import com.lynch.hawkeye.fragment.FeatheredFragment;
 
 import java.util.ArrayList;
+
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * Created by JL on 2016/11/24/0024.
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     public  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /* 透明状态栏只有在 SDK >= 19 (Android 4.4) 才会生效. */
+        StatusBarCompat.translucentStatusBar(MainActivity.this);
 
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);

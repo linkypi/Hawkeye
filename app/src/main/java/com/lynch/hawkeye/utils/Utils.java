@@ -29,10 +29,13 @@ public class Utils {
     public static boolean isFirstOpen(Context context)
     {
         boolean firstOpen = readBoolean(context,"first_open");
-        if(firstOpen){
-            writeBoolean(context,"first_open",false);
+        if(!firstOpen){
+            writeBoolean(context,"first_open",true);
         }
         return firstOpen;
     }
 
+    public static boolean isNullOrEmpty(String text) {
+        return text==null||text.equals("");
+    }
 }
