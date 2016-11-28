@@ -38,6 +38,8 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.github.niorgai:StatusBarCompat:2.1.0'
 
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 //    compile 'cn.finalteam.rxgalleryfinal:library:0.0.3'
 //    //rxgalleryfinal依赖appcompat-v7和recyclerview-v7扩展卡库
 //    compile 'com.android.support:recyclerview-v7:24.2.0'

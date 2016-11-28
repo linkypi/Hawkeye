@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.lynch.hawkeye.R;
+import com.lynch.hawkeye.TestActivity;
 import com.lynch.hawkeye.utils.Utils;
 
 public class SplashActivity extends Activity {
@@ -28,7 +29,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 if (_firstOpen) {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, TestActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
