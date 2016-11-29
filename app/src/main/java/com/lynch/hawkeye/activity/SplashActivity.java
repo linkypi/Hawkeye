@@ -29,7 +29,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 if (_firstOpen) {
-                    Intent intent = new Intent(SplashActivity.this, TestActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

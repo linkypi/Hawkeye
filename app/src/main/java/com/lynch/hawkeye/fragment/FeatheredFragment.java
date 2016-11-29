@@ -3,20 +3,30 @@ package com.lynch.hawkeye.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.activity.VideoActivity;
+import com.lynch.hawkeye.model.Dto;
 import com.lynch.hawkeye.utils.Utils;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,28 +45,40 @@ public class FeatheredFragment extends BaseFragment {
     private static final String ARG_PARAM2 = "param2";
 
     private List<String> urls = Arrays.asList(
-        "http://uc-baobab.wdjcdn.com/1479900066561_1ef77057.mp4?t=1480262343&k=8bb842153873c881",
-        "http://uc-baobab.wdjcdn.com/1449473403055h.mp4?t=1480262480&k=07dd36582fa174a7",
-        "http://uc-baobab.wdjcdn.com/1476327025495_fddf2a25_1280x720.mp4?t=1480262537&k=ce1982e1c49df3b2",
-        "http://uc-baobab.wdjcdn.com/1467624049383president_x264.mp4?t=1480262577&k=eb592c1733217576",
-        "http://uc-baobab.wdjcdn.com/1479962643470_6423653d.mp4?t=1480262606&k=4e17d133e9a29d83",
-        "http://uc-baobab.wdjcdn.com/1480060556060_b2e2578a_1280x720.mp4?t=1480262620&k=0581d1eada6ea38b",
-        "http://uc-baobab.wdjcdn.com/1479904452346_1cc4dc0b.mp4?t=1480262639&k=283c8ff3139ecd7c",
-        "http://uc-baobab.wdjcdn.com/1476327025495_fddf2a25_1280x720.mp4?t=1480262537&k=ce1982e1c49df3b2"
+            "http://192.168.0.176:7000/mp4/360.mp4",
+            "http://192.168.0.176:7000/mp4/cat.mp4",
+            "http://192.168.0.176:7000/mp4/slide.mp4",
+            "http://192.168.0.176:7000/mp4/pian.mp4",
+            "http://192.168.0.176:7000/mp4/sunshine.mp4",
+            "http://192.168.0.176:7000/mp4/3d.mp4",
+            "http://192.168.0.176:7000/mp4/cat.mp4",
+            "http://192.168.0.176:7000/mp4/pian.mp4"
     );
     private List<String> texts = Arrays.asList(
-            "","面朝大海，春暖花开",
-            "燃烧吧，摩托",
+            "360°全景延时影片「复古巴黎」",
+            "喂养猫的好奇心",
+            "高山滑雪玩腻了，我们高空滑云",
+            "史上超超超快大片已上线",
+            "日月轮转，山上的星空",
+            "良心3D动画:酒精怪物",
             "做男模，颜值是唯一的标准吗？",
-            "S...B",
-            "Handsome",
-            "future",
-            "希望"
+            "future"
     );
 
     private List<Integer> images = Arrays.asList(
             R.drawable.img1, R.drawable.img3, R.drawable.img5, R.drawable.img6,
             R.drawable.img7, R.drawable.img8, R.drawable.img9, R.drawable.img10
+    );
+
+    private List<String> imageUrls = Arrays.asList(
+            "http://img.kaiyanapp.com/15fdc64c67ea45a1ed39f807c29cf2de.jpeg?imageMogr2/quality/60",
+        "http://img.kaiyanapp.com/1d5cd526be9a751617efdf5e51bb6a2d.jpeg?imageMogr2/quality/60",
+        "http://img.kaiyanapp.com/98637a768af28989e6722b3788a8175c.jpeg?imageMogr2/quality/60",
+        "http://img.kaiyanapp.com/1f27faaaa5514aea9d28de970e7efe1a.jpeg?imageMogr2/quality/60",
+        "http://img.kaiyanapp.com/00ed86faa91106a4974e59b292ee1b7e.jpeg?imageMogr2/quality/60",
+        "http://img.kaiyanapp.com/15435f8b3310734535402e57b5e946b3.jpeg?imageMogr2/quality/60",
+        "http://img.kaiyanapp.com/98637a768af28989e6722b3788a8175c.jpeg?imageMogr2/quality/60",
+        "http://img.kaiyanapp.com/15fdc64c67ea45a1ed39f807c29cf2de.jpeg?imageMogr2/quality/60"
     );
 
     // TODO: Rename and change types of parameters
@@ -100,28 +122,41 @@ public class FeatheredFragment extends BaseFragment {
     private void initViews(){
 
         for (int index = 0; index < 8; index++) {
-            LinearLayout view = new LinearLayout(mContext);
+            RelativeLayout view = new RelativeLayout(mContext);
             view.setGravity(Gravity.CENTER);
-            view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150)));
-            view.setBackgroundResource(images.get(index));
-            view.setTag(urls.get(index));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150));
+            lp.gravity = Gravity.CENTER;
+            view.setLayoutParams(lp);
+            view.setTag(new Dto(texts.get(index),urls.get(index)));
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, VideoActivity.class);
-                    intent.putExtra("url",v.getTag().toString());
+                    Dto dto = (Dto)v.getTag();
+                    intent.putExtra("url",dto.getUrl());
+                    intent.putExtra("title",dto.getTitle());
                     startActivity(intent);
                 }
             });
+
+            ImageView imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150)));
+            Picasso.with(mContext).load(imageUrls.get(index)).into(imageView);
+            view.addView(imageView);
+
             TextView tview = new TextView(mContext);
             tview.setText(texts.get(index));
-            tview.setTextSize(18);
+            tview.setTextSize(16);
             tview.setTextColor(Color.parseColor("#FFFFFF"));
+            tview.setGravity(Gravity.CENTER);
+            tview.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             view.addView(tview);
-            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
             content_view.addView(view);
+
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

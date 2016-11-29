@@ -5,11 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lynch.hawkeye.TestActivity">
-    <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
-    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
-    <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
-    <!--android:paddingTop="@dimen/activity_vertical_margin"-->
-    <Framelayout
+
+    <FrameLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent">
         <!--<android.support.v4.view.Viewpager/>-->
@@ -17,7 +14,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></ListView>
-        <Linearlayout android:gravity="center"
+        <LinearLayout android:gravity="center"
             android:id="@+id/CarouselLayoutPage"
             android:layout_gravity="center|bottom"
             android:layout_height="wrap_content"
@@ -25,7 +22,7 @@
             android:orientation="horizontal"
             android:padding="10dip">
 
-        </Linearlayout>
-    </Framelayout>
+        </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>
