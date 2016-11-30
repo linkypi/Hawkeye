@@ -3,6 +3,7 @@ package com.lynch.hawkeye.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.lynch.hawkeye.component.CustomProgressBar;
 import com.lynch.hawkeye.component.MyProgressDialog;
@@ -24,6 +25,11 @@ public class BaseFragment  extends Fragment {
 //        dbManager = new DBManager(mContext);
 //        application = (AccuApplication) getActivity().getApplication();
         //init();
+    }
+
+    public void showMsg(String msg)
+    {
+        Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show();
     }
     /** 初始化自定义对话框 */
 //    private void init() {

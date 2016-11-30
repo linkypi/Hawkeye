@@ -1,10 +1,12 @@
 package com.lynch.hawkeye.model;
 
+import java.io.Serializable;
+
 /**
  * Created by linxueqi on 2016/11/29 0029.
  */
 
-public class Dto {
+public class Dto implements Serializable {
     public  Dto(){}
     public  Dto(String title,String url){
         this.title = title;

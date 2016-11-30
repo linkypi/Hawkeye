@@ -11,6 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--<tv.danmaku.ijk.media.sample.widget.media.IjkVideoView-->
+            <!--android:id="@+id/videoplayer"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="250dp"-->
+            <!--android:layout_gravity="center">-->
+        <!--</tv.danmaku.ijk.media.sample.widget.media.IjkVideoView>-->
+
         <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
             android:id="@+id/videoplayer"
             android:layout_width="match_parent"

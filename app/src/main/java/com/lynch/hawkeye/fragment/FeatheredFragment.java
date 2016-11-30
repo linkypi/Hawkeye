@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.activity.VideoActivity;
 import com.lynch.hawkeye.model.Dto;
+import com.lynch.hawkeye.utils.AppContext;
 import com.lynch.hawkeye.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -44,16 +45,24 @@ public class FeatheredFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private List<String> urls = Arrays.asList(
-            "http://192.168.0.176:7000/mp4/360.mp4",
-            "http://192.168.0.176:7000/mp4/cat.mp4",
-            "http://192.168.0.176:7000/mp4/slide.mp4",
-            "http://192.168.0.176:7000/mp4/pian.mp4",
-            "http://192.168.0.176:7000/mp4/sunshine.mp4",
-            "http://192.168.0.176:7000/mp4/3d.mp4",
-            "http://192.168.0.176:7000/mp4/cat.mp4",
-            "http://192.168.0.176:7000/mp4/pian.mp4"
+    private List<String> videos = Arrays.asList(
+            "/mp4/360.mp4",
+            "/mp4/cat.mp4",
+            "/mp4/slide.mp4",
+            "/mp4/pian.mp4",
+            "/mp4/sunshine.mp4",
+            "/mp4/3d.mp4",
+            "/mp4/cat.mp4",
+            "/mp4/pian.mp4"
     );
+//    "http://192.168.0.176:7000/mp4/360.mp4",
+//            "http://192.168.0.176:7000/mp4/cat.mp4",
+//            "http://192.168.0.176:7000/mp4/slide.mp4",
+//            "http://192.168.0.176:7000/mp4/pian.mp4",
+//            "http://192.168.0.176:7000/mp4/sunshine.mp4",
+//            "http://192.168.0.176:7000/mp4/3d.mp4",
+//            "http://192.168.0.176:7000/mp4/cat.mp4",
+//            "http://192.168.0.176:7000/mp4/pian.mp4"
     private List<String> texts = Arrays.asList(
             "360°全景延时影片「复古巴黎」",
             "喂养猫的好奇心",
@@ -123,24 +132,30 @@ public class FeatheredFragment extends BaseFragment {
 
         for (int index = 0; index < 8; index++) {
             RelativeLayout view = new RelativeLayout(mContext);
+            //LayoutParams的类型由父控件决定
+            LinearLayout.LayoutParams lps = new LinearLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150));
+            lps.gravity = Gravity.CENTER;
             view.setGravity(Gravity.CENTER);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150));
-            lp.gravity = Gravity.CENTER;
-            view.setLayoutParams(lp);
-            view.setTag(new Dto(texts.get(index),urls.get(index)));
+            view.setLayoutParams(lps);
+            String url = AppContext.ip + videos.get(index);
+            view.setTag(new Dto(texts.get(index),url));
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, VideoActivity.class);
                     Dto dto = (Dto)v.getTag();
-                    intent.putExtra("url",dto.getUrl());
-                    intent.putExtra("title",dto.getTitle());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data", dto);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
             });
 
             ImageView imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150)));
+            RelativeLayout.LayoutParams ilps = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150));
+            imageView.setLayoutParams(ilps);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Picasso.with(mContext).load(imageUrls.get(index)).into(imageView);
             view.addView(imageView);
 
@@ -149,11 +164,11 @@ public class FeatheredFragment extends BaseFragment {
             tview.setTextSize(16);
             tview.setTextColor(Color.parseColor("#FFFFFF"));
             tview.setGravity(Gravity.CENTER);
-            tview.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            RelativeLayout.LayoutParams tlps = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+            tview.setLayoutParams(tlps);
             view.addView(tview);
 
             content_view.addView(view);
-
         }
     }
 

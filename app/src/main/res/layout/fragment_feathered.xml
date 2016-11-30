@@ -5,10 +5,10 @@
     tools:context="com.lynch.hawkeye.fragment.FeatheredFragment">
 
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
         <ScrollView
             android:scrollbars="vertical"
@@ -20,22 +20,22 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <!--<RelativeLayout-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="150dp">-->
-               <!--<ImageView-->
-                  <!--android:background="@drawable/img1"-->
-                  <!--android:layout_width="match_parent"-->
-                  <!--android:layout_height="150dp" />-->
-                <!--<TextView-->
-                    <!--android:textSize="18dp"-->
-                    <!--android:textColor="@android:color/white"-->
-                    <!--android:gravity="center"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:text="面朝大海，春暖花开"/>-->
-            <!--</RelativeLayout>-->
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+               <ImageView
+                  android:background="@drawable/img8"
+                  android:layout_width="match_parent"
+                  android:layout_height="150dp" />
+                <TextView
+                    android:textSize="18dp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="面朝大海，春暖花开"/>
+            </RelativeLayout>
             <!--<LinearLayout-->
                 <!--android:gravity="center"-->
                 <!--android:background="@drawable/img3"-->
@@ -112,5 +112,5 @@
             <!--</LinearLayout>-->
         </LinearLayout>
         </ScrollView>
-    </LinearLayout>
+    <!--</LinearLayout>-->
 </FrameLayout>

@@ -37,17 +37,20 @@
             android:text="未登录"/>
         </LinearLayout>
         <LinearLayout
+            android:padding="16dp"
+            android:orientation="vertical"
             android:id="@+id/bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <!-- TODO: Update blank fragment layout -->
-            <TextView
-                android:gravity="center"
-                android:textSize="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="图书" />
 
+            <Button
+                android:text="IP配置"
+                android:gravity="left"
+                android:background="@null"
+                android:id="@+id/btn_ip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 

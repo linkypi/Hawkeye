@@ -1,10 +1,13 @@
 package com.lynch.hawkeye.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -12,6 +15,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lynch.hawkeye.activity.LoginActivity;
@@ -19,6 +24,8 @@ import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.component.RoundImageView;
 import com.lynch.hawkeye.component.SelectPhotoPopupWindow;
 import com.lynch.hawkeye.utils.AppContext;
+import com.lynch.hawkeye.utils.Utils;
+import com.lynch.hawkeye.utils.Validator;
 
 import java.io.File;
 
@@ -30,7 +37,7 @@ import java.io.File;
  * Use the {@link MineFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MineFragment extends Fragment {
+public class MineFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,6 +46,7 @@ public class MineFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private RoundImageView head_portrait;
     private View view;
+    private Button btn_ip;
     private static final int PHOTO_REQUEST_CAREMA = 1;
     private static final int PHOTO_REQUEST_GALLERY = 2;
     private static final int PHOTO_REQUEST_CUT = 3;
@@ -83,10 +91,40 @@ public class MineFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_mine, container, false);
         head_portrait = (RoundImageView)view.findViewById(R.id.head_portrait);
+        btn_ip = (Button)view.findViewById(R.id.btn_ip);
+
+        btn_ip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final EditText editText = new EditText(mContext);
+                new AlertDialog.Builder(mContext)
+                        .setTitle("请输入IP")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setView(editText)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String ip = editText.getText().toString();
+                                if(Utils.isNullOrEmpty(ip)) return;
+
+                                if(Validator.isIPAddr(ip)){
+                                    AppContext.ip = "http://"+ ip;
+                                    showMsg("设置成功.");
+                                    return;
+                                }
+                                showMsg("IP地址无效.");
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
+            }
+        });
+
         head_portrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
