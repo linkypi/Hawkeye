@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.lynch.hawkeye.R;
@@ -23,7 +24,7 @@ import java.util.TimerTask;
  * Created by linxueqi on 2016/11/28 0028.
  */
 
-public class BannerView extends View implements ViewPager.OnPageChangeListener {
+public class BannerView extends FrameLayout implements ViewPager.OnPageChangeListener {
 
     private Adapter adapter;
     private Context context;
@@ -141,7 +142,7 @@ public class BannerView extends View implements ViewPager.OnPageChangeListener {
         this.carouselLayout = (LinearLayout) view.findViewById(R.id.CarouselLayoutPage);
         IndicatorDotWidth = Utils.dip2px(context, IndicatorDotWidth);
         this.viewPager.addOnPageChangeListener(this);
-//        addView(view);
+        addView(view);
     }
 
     @Override

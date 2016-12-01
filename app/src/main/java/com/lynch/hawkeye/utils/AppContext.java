@@ -9,6 +9,6 @@ public class AppContext {
     public static String user_name= "";
     public static String password ;
 
-    public static String ip="http://192.168.0.176:7000/";
+    public static String ip="http://192.168.199.139:7000/";
 
 }

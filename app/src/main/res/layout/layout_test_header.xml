@@ -3,10 +3,12 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <com.example.dreamwork.activity.carouselview.bannerview
-        android:id="@+id/CarouselView"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-    </com.example.dreamwork.activity.carouselview.bannerview>
+
+    <!--<com.lynch.hawkeye.component.BannerView-->
+        <!--android:id="@+id/CarouselView"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--&gt;-->
+    <!--</com.lynch.hawkeye.component.BannerView>-->
 
 </LinearLayout>

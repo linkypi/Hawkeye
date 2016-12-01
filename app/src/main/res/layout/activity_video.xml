@@ -51,6 +51,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp">
                     <com.lynch.hawkeye.component.RoundImageView
+                        android:id="@+id/img_producer"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
@@ -78,23 +79,97 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
             <TextView
+                android:padding="10dp"
                 android:text="复古的手工上色，瞬间带你穿越去20世纪初的巴黎街头."
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="110dp" />
             <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
+                    android:layout_weight=".25"
+                    android:layout_gravity="center"
                     android:orientation="horizontal"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent">
                     <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content" />
+                        android:background="@drawable/uncollect"
+                        android:id="@+id/img_collect"
+                        android:layout_gravity="center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
                     <TextView
+                        android:paddingLeft="5dp"
+                        android:textSize="18dp"
+                        android:id="@+id/collect_count"
+                        android:layout_gravity="center"
                         android:text="563"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight=".25"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img_share"
+                        android:background="@drawable/share_48"
+                        android:layout_gravity="center"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp" />
+                    <TextView
+                        android:id="@+id/share_count"
+                        android:paddingLeft="5dp"
+                        android:textSize="18dp"
+                        android:layout_gravity="center"
+                        android:text="123"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight=".25"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img_comment"
+                        android:background="@drawable/comment_64"
+                        android:layout_gravity="center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                    <TextView
+                        android:id="@+id/comment_count"
+                        android:paddingLeft="5dp"
+                        android:textSize="18dp"
+                        android:layout_gravity="center"
+                        android:text="60"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight=".25"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img_download"
+                        android:background="@drawable/download_64"
+                        android:layout_gravity="center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                    <!--<TextView-->
+                        <!--android:paddingLeft="2dp"-->
+                        <!--android:textSize="18dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:text="60"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content" />-->
                 </LinearLayout>
             </LinearLayout>
 
