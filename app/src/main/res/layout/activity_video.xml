@@ -82,7 +82,7 @@
                 android:padding="10dp"
                 android:text="复古的手工上色，瞬间带你穿越去20世纪初的巴黎街头."
                 android:layout_width="match_parent"
-                android:layout_height="110dp" />
+                android:layout_height="100dp" />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_weight="1"
@@ -98,8 +98,8 @@
                         android:background="@drawable/uncollect"
                         android:id="@+id/img_collect"
                         android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
                     <TextView
                         android:paddingLeft="5dp"
                         android:textSize="18dp"
@@ -119,8 +119,8 @@
                         android:id="@+id/img_share"
                         android:background="@drawable/share_48"
                         android:layout_gravity="center"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp" />
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
                     <TextView
                         android:id="@+id/share_count"
                         android:paddingLeft="5dp"
@@ -140,8 +140,8 @@
                         android:id="@+id/img_comment"
                         android:background="@drawable/comment_64"
                         android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
                     <TextView
                         android:id="@+id/comment_count"
                         android:paddingLeft="5dp"
@@ -161,8 +161,8 @@
                         android:id="@+id/img_download"
                         android:background="@drawable/download_64"
                         android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
                     <!--<TextView-->
                         <!--android:paddingLeft="2dp"-->
                         <!--android:textSize="18dp"-->

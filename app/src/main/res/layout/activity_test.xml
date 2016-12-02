@@ -8,24 +8,13 @@
 
         <com.lynch.hawkeye.component.BannerView
             android:id="@+id/CarouselView"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_width="match_parent"
             >
         </com.lynch.hawkeye.component.BannerView>
-
-        <!--<include layout="@layout/layout_test_header"/>-->
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
-        <LinearLayout android:gravity="center"
-            android:id="@+id/CarouselLayoutPage"
-            android:layout_gravity="center|bottom"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal"
-            android:padding="10dip">
-
-        </LinearLayout>
+        <!--<ListView-->
+            <!--android:id="@+id/list"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"></ListView>-->
 
 </RelativeLayout>

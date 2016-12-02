@@ -6,20 +6,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.lynch.hawkeye.component.BannerView;
-import com.lynch.hawkeye.utils.Utils;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -34,30 +28,30 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
         mContext = this;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_test);
         InitView();
-
     }
 
     private void InitView() {
         InitDatas();
         mInflater = LayoutInflater.from(this);
-        headView = mInflater.inflate(R.layout.layout_test_header, null);
-        carouselView = (BannerView) headView.findViewById(R.id.CarouselView);
+        //headView = mInflater.inflate(R.layout.layout_test_header, null);
+//        carouselView = (BannerView) headView.findViewById(R.id.CarouselView);
+        carouselView = (BannerView) findViewById(R.id.CarouselView);
         //这里考虑到不同手机分辨率下的情况
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(this, 200));
-        carouselView.setLayoutParams(params);
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(this, 200));
+//        carouselView.setLayoutParams(params);
         carouselView.setSwitchTime(2000);
-        carouselView.setAdapter(new MyAdapter());
-
-        listview = (ListView) findViewById(R.id.list);
-        listview.addHeaderView(headView);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(mContext,
-                android.R.layout.simple_expandable_list_item_1, datas);
-        listview.setAdapter(myAdapter);
+//        carouselView.setAdapter(new MyAdapter());
+        carouselView.setDefaultAdapter(banners);
+//        listview = (ListView) findViewById(R.id.list);
+//        listview.addHeaderView(headView);
+//        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(mContext,
+//                android.R.layout.simple_expandable_list_item_1, datas);
+//        listview.setAdapter(myAdapter);
 
     }
 
@@ -65,10 +59,10 @@ public class TestActivity extends AppCompatActivity {
      * 设定虚拟数据
      */
     private void InitDatas() {
-        datas = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            datas.add("the Item is " + i);
-        }
+//        datas = new ArrayList<>();
+//        for (int i = 0; i < 20; i++) {
+//            datas.add("the Item is " + i);
+//        }
         //图片来自百度
         banners = Arrays.asList(
                 "http://img1.imgtn.bdimg.com/it/u=2826772326,2794642991&fm=15&gp=0.jpg",
@@ -86,30 +80,30 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
-    private class MyAdapter implements BannerView.Adapter {
-
-        @Override
-        public boolean isEmpty() {
-            return banners.size() > 0 ? false : true;
-        }
-
-        @Override
-        public View getView(final int position) {
-            View view = mInflater.inflate(R.layout.activity_test_item, null);
-            ImageView imageView = (ImageView) view.findViewById(R.id.image);
-            Picasso.with(mContext).load(banners.get(position)).into(imageView);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //T.showShort(mContext,"Now is "+position);
-                }
-            });
-            return view;
-        }
-
-        @Override
-        public int getCount() {
-            return banners.size();
-        }
-    }
+//    private class MyAdapter implements BannerView.Adapter {
+//
+//        @Override
+//        public boolean isEmpty() {
+//            return banners.size() > 0 ? false : true;
+//        }
+//
+//        @Override
+//        public View getView(final int position) {
+//            View view = mInflater.inflate(R.layout.layout_banner_item, null);
+//            ImageView imageView = (ImageView) view.findViewById(R.id.image);
+//            Picasso.with(mContext).load(banners.get(position)).into(imageView);
+//            view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //T.showShort(mContext,"Now is "+position);
+//                }
+//            });
+//            return view;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return banners.size();
+//        }
+//    }
 }

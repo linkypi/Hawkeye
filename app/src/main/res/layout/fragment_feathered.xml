@@ -5,12 +5,19 @@
     tools:context="com.lynch.hawkeye.fragment.FeatheredFragment">
 
 
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/layout_feathered_header"/>
+        <com.lynch.hawkeye.component.BannerView
+            android:id="@+id/banners"
+            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            >
+        </com.lynch.hawkeye.component.BannerView>
         <ScrollView
+            android:layout_marginTop="2dp"
             android:scrollbars="vertical"
             android:fadingEdge="vertical"
             android:layout_width="match_parent"
@@ -112,5 +119,5 @@
             <!--</LinearLayout>-->
         </LinearLayout>
         </ScrollView>
-    <!--</LinearLayout>-->
+    </LinearLayout>
 </FrameLayout>

@@ -2,13 +2,23 @@ package com.lynch.hawkeye.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.lynch.hawkeye.R;
+import com.lynch.hawkeye.utils.Utils;
+import com.squareup.picasso.Picasso;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -28,6 +38,17 @@ public class FindFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LinearLayout linearLayout;
+    private Context context;
+
+    private List<String> imageUrls = Arrays.asList("http://img.kaiyanapp.com/9f4c1559d54d4274e5463fba4262b284.jpeg",
+            "http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg",
+            "http://img.kaiyanapp.com/00d60c80c7fa0db3bacd568b5999d045.jpeg",
+            "http://img.kaiyanapp.com/482c741c06644f5566c7218096dbaf26.jpeg",
+            "http://img.kaiyanapp.com/0117b9108c7cff43700db8af5e24f2bf.jpeg",
+            "http://img.kaiyanapp.com/ac6971c1b9fc942c7547d25fc6c60ad2.jpeg",
+            "http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg",
+            "http://img.kaiyanapp.com/a2fc6d32ac0b4f2842fb3d545d06f09b.jpeg");
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,7 +87,35 @@ public class FindFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_find, container, false);
+        View view = inflater.inflate(R.layout.fragment_find, container, false);
+        linearLayout = (LinearLayout) view.findViewById(R.id.content_find);
+        this.context = getActivity();
+        initViews();
+        return view;
+    }
+
+    private void initViews() {
+        for (int index = 0; index < 4; index++) {
+            LinearLayout layout = new LinearLayout(context);
+            LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(context, 150));
+            lparams.weight = 1;
+            layout.setOrientation(LinearLayout.HORIZONTAL);
+            layout.setLayoutParams(lparams);
+
+            for (int item = 0; item < 2; item++) {
+                ImageView imageView = new ImageView(context);
+                LinearLayout.LayoutParams ilps = new LinearLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,Utils.dip2px(context, 150));
+                ilps.weight = 0.4f;
+                imageView.setLayoutParams(ilps);
+                imageView.setPadding(5,5,5,5);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                Picasso.with(context).load(imageUrls.get(index * 2 + item)).into(imageView);
+                layout.addView(imageView);
+            }
+            linearLayout.addView(layout);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

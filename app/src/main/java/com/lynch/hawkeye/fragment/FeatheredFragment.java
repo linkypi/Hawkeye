@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.activity.VideoActivity;
+import com.lynch.hawkeye.component.BannerView;
 import com.lynch.hawkeye.model.Dto;
 import com.lynch.hawkeye.utils.AppContext;
 import com.lynch.hawkeye.utils.Utils;
@@ -55,7 +56,7 @@ public class FeatheredFragment extends BaseFragment {
             "/mp4/cat.mp4",
             "/mp4/pian.mp4"
     );
-//    "http://192.168.0.176:7000/mp4/360.mp4",
+    //    "http://192.168.0.176:7000/mp4/360.mp4",
 //            "http://192.168.0.176:7000/mp4/cat.mp4",
 //            "http://192.168.0.176:7000/mp4/slide.mp4",
 //            "http://192.168.0.176:7000/mp4/pian.mp4",
@@ -81,19 +82,20 @@ public class FeatheredFragment extends BaseFragment {
 
     private List<String> imageUrls = Arrays.asList(
             "http://img.kaiyanapp.com/15fdc64c67ea45a1ed39f807c29cf2de.jpeg?imageMogr2/quality/60",
-        "http://img.kaiyanapp.com/1d5cd526be9a751617efdf5e51bb6a2d.jpeg?imageMogr2/quality/60",
-        "http://img.kaiyanapp.com/98637a768af28989e6722b3788a8175c.jpeg?imageMogr2/quality/60",
-        "http://img.kaiyanapp.com/1f27faaaa5514aea9d28de970e7efe1a.jpeg?imageMogr2/quality/60",
-        "http://img.kaiyanapp.com/00ed86faa91106a4974e59b292ee1b7e.jpeg?imageMogr2/quality/60",
-        "http://img.kaiyanapp.com/15435f8b3310734535402e57b5e946b3.jpeg?imageMogr2/quality/60",
-        "http://img.kaiyanapp.com/98637a768af28989e6722b3788a8175c.jpeg?imageMogr2/quality/60",
-        "http://img.kaiyanapp.com/15fdc64c67ea45a1ed39f807c29cf2de.jpeg?imageMogr2/quality/60"
+            "http://img.kaiyanapp.com/1d5cd526be9a751617efdf5e51bb6a2d.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/98637a768af28989e6722b3788a8175c.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/1f27faaaa5514aea9d28de970e7efe1a.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/00ed86faa91106a4974e59b292ee1b7e.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/15435f8b3310734535402e57b5e946b3.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/98637a768af28989e6722b3788a8175c.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/15fdc64c67ea45a1ed39f807c29cf2de.jpeg?imageMogr2/quality/60"
     );
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    LinearLayout content_view;
+    private LinearLayout content_view;
+    private BannerView bannerView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -128,6 +130,16 @@ public class FeatheredFragment extends BaseFragment {
         }
     }
 
+    private void initBanners(){
+        List<String> banners = Arrays.asList(
+                "http://img1.imgtn.bdimg.com/it/u=2826772326,2794642991&fm=15&gp=0.jpg",
+                "http://img15.3lian.com/2015/f2/147/d/39.jpg",
+                "http://img1.3lian.com/2015/a1/107/d/65.jpg",
+                "http://img1.3lian.com/2015/a1/93/d/225.jpg",
+                "http://img1.3lian.com/img013/v4/96/d/44.jpg");
+        bannerView.setSwitchTime(2000);
+        bannerView.setDefaultAdapter(banners);
+    }
     private void initViews(){
 
         for (int index = 0; index < 8; index++) {
@@ -178,7 +190,11 @@ public class FeatheredFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_feathered, container, false);
         content_view = (LinearLayout)view.findViewById(R.id.content);
+        bannerView = (BannerView) view.findViewById(R.id.banners);
+
+        initBanners();
         initViews();
+
         return view;
     }
 
@@ -187,6 +203,18 @@ public class FeatheredFragment extends BaseFragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (bannerView != null) {
+            bannerView.cancelTimer();
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

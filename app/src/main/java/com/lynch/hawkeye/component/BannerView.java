@@ -12,11 +12,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.utils.Utils;
+import com.squareup.picasso.Picasso;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,13 +33,14 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
     private Context context;
     private ViewPager viewPager;
     private LinearLayout carouselLayout;
+    private LayoutInflater inflater;
     private static final int MSG = 0X100;
     /**
      * 轮播图最大数
      */
     private int totalCount = Integer.MAX_VALUE;
     /**
-     * 当前banner需要显式的数量
+     * 当前banner需要显示的数量
      */
     private int showCount;
     private int currentPosition = 0;
@@ -76,6 +80,16 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
     public BannerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
+    }
+
+    private void create(){
+        inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.layout_banner, null);
+        this.viewPager = (ViewPager) view.findViewById(R.id.banner_viewpager);
+        this.carouselLayout = (LinearLayout) view.findViewById(R.id.layout_banner_page);
+        IndicatorDotWidth = Utils.dip2px(context, IndicatorDotWidth);
+        this.viewPager.addOnPageChangeListener(this);
+        addView(view);
     }
 
     private void init() {
@@ -126,23 +140,22 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
         mTimer.schedule(mTimerTask, switchTime, switchTime);
     }
 
-    //设置adapter，这个方法需要再使用时设置
     public void setAdapter(Adapter adapter) {
-        this.adapter = adapter;
         if (adapter != null) {
+            this.adapter = adapter;
             init();
         }
+    }
+
+    public void setDefaultAdapter(List<String> banners){
+        this.adapter = new BannerView.DefaultAdapter(banners);
+        init();
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        View view = LayoutInflater.from(context).inflate(R.layout.carousel_layout, null);
-        this.viewPager = (ViewPager) view.findViewById(R.id.gallery);
-        this.carouselLayout = (LinearLayout) view.findViewById(R.id.CarouselLayoutPage);
-        IndicatorDotWidth = Utils.dip2px(context, IndicatorDotWidth);
-        this.viewPager.addOnPageChangeListener(this);
-        addView(view);
+        create();
     }
 
     @Override
@@ -177,6 +190,15 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
 
     }
 
+    private View getView(String url)
+    {
+//        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.layout_banner_item, null);
+        ImageView imageView = (ImageView) view.findViewById(R.id.image);
+        Picasso.with(context).load(url).into(imageView);
+        return view;
+    }
+
     class ViewPagerAdapter extends PagerAdapter {
         @Override
         public int getCount() {
@@ -189,7 +211,8 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             position %= showCount;
-            View view = adapter.getView(position);
+            String url = adapter.getUrl(position);
+            View view = getView(url) ;//adapter.getView(position);
             container.addView(view);
             return view;
         }
@@ -214,6 +237,7 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
             }
         }
     }
+
     private TimerTask mTimerTask = new TimerTask() {
         @Override
         public void run() {
@@ -229,11 +253,12 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
             this.mTimer.cancel();
         }
     }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == MSG) {
-                Log.e("Pos", "the position is " + currentPosition);
+                //Log.e("Pos", "the position is " + currentPosition);
                 if (currentPosition == totalCount - 1) {
                     viewPager.setCurrentItem(showCount - 1, false);
                 } else {
@@ -255,9 +280,51 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
     public void setIndicatorDotWidth(int indicatorDotWidth) {
         IndicatorDotWidth = indicatorDotWidth;
     }
+
+    /**
+     * 适配器
+     */
     public interface Adapter {
         boolean isEmpty();
-        View getView(int position);
+        String getUrl(int position);
         int getCount();
+    }
+
+    private class DefaultAdapter implements BannerView.Adapter {
+
+        private List<String> banners;
+
+        public DefaultAdapter(){}
+        public DefaultAdapter(List<String> banners){
+            this.banners = banners;
+        }
+        @Override
+        public boolean isEmpty() {
+            return banners.size() > 0 ? false : true;
+        }
+
+        @Override
+        public String getUrl(int position){
+            return banners.get(position);
+        }
+//        @Override
+//        public View getView(final int position) {
+//            LayoutInflater inflater = LayoutInflater.from(context);
+//            View view = inflater.inflate(R.layout.layout_banner_item, null);
+//            ImageView imageView = (ImageView) view.findViewById(R.id.image);
+//            Picasso.with(context).load(banners.get(position)).into(imageView);
+//            view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+//            return view;
+//        }
+
+        @Override
+        public int getCount() {
+            return banners.size();
+        }
     }
 }
