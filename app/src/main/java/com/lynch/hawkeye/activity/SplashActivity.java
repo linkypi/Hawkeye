@@ -8,7 +8,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.lynch.hawkeye.R;
-import com.lynch.hawkeye.TestActivity;
 import com.lynch.hawkeye.utils.Utils;
 
 public class SplashActivity extends Activity {

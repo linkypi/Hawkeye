@@ -3,32 +3,28 @@ package com.lynch.hawkeye.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lynch.hawkeye.R;
+import com.lynch.hawkeye.activity.SearchActivity;
 import com.lynch.hawkeye.activity.VideoActivity;
 import com.lynch.hawkeye.component.BannerView;
 import com.lynch.hawkeye.model.Dto;
-import com.lynch.hawkeye.utils.AppContext;
+import com.lynch.hawkeye.config.AppContext;
 import com.lynch.hawkeye.utils.Utils;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,23 +43,15 @@ public class FeatheredFragment extends BaseFragment {
     private static final String ARG_PARAM2 = "param2";
 
     private List<String> videos = Arrays.asList(
-            "/mp4/360.mp4",
-            "/mp4/cat.mp4",
-            "/mp4/slide.mp4",
-            "/mp4/pian.mp4",
-            "/mp4/sunshine.mp4",
-            "/mp4/3d.mp4",
-            "/mp4/cat.mp4",
-            "/mp4/pian.mp4"
+            "/360.mov",
+            "/cat.mp4",
+            "/slide.mp4",
+            "/pian.mp4",
+            "/sunshine.mp4",
+            "/3d.mp4",
+            "/cat.mp4",
+            "/pian.mp4"
     );
-    //    "http://192.168.0.176:7000/mp4/360.mp4",
-//            "http://192.168.0.176:7000/mp4/cat.mp4",
-//            "http://192.168.0.176:7000/mp4/slide.mp4",
-//            "http://192.168.0.176:7000/mp4/pian.mp4",
-//            "http://192.168.0.176:7000/mp4/sunshine.mp4",
-//            "http://192.168.0.176:7000/mp4/3d.mp4",
-//            "http://192.168.0.176:7000/mp4/cat.mp4",
-//            "http://192.168.0.176:7000/mp4/pian.mp4"
     private List<String> texts = Arrays.asList(
             "360°全景延时影片「复古巴黎」",
             "喂养猫的好奇心",
@@ -96,6 +84,7 @@ public class FeatheredFragment extends BaseFragment {
     private String mParam2;
     private LinearLayout content_view;
     private BannerView bannerView;
+    private ImageButton btnSearch;
 
     private OnFragmentInteractionListener mListener;
 
@@ -132,9 +121,10 @@ public class FeatheredFragment extends BaseFragment {
 
     private void initBanners(){
         List<String> banners = Arrays.asList(
-                "http://img1.imgtn.bdimg.com/it/u=2826772326,2794642991&fm=15&gp=0.jpg",
                 "http://img15.3lian.com/2015/f2/147/d/39.jpg",
                 "http://img1.3lian.com/2015/a1/107/d/65.jpg",
+//                "http://img1.3lian.com/2015/a1/107/d/21.jpg",
+                "http://img15.3lian.com/2015/f2/147/d/9.jpg",
                 "http://img1.3lian.com/2015/a1/93/d/225.jpg",
                 "http://img1.3lian.com/img013/v4/96/d/44.jpg");
         bannerView.setSwitchTime(2000);
@@ -146,7 +136,7 @@ public class FeatheredFragment extends BaseFragment {
             RelativeLayout view = new RelativeLayout(mContext);
             //LayoutParams的类型由父控件决定
             LinearLayout.LayoutParams lps = new LinearLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150));
+                    RelativeLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 120));
             lps.gravity = Gravity.CENTER;
             view.setGravity(Gravity.CENTER);
             view.setLayoutParams(lps);
@@ -165,7 +155,7 @@ public class FeatheredFragment extends BaseFragment {
             });
 
             ImageView imageView = new ImageView(mContext);
-            RelativeLayout.LayoutParams ilps = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 150));
+            RelativeLayout.LayoutParams ilps = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);//Utils.dip2px(mContext, 120)
             imageView.setLayoutParams(ilps);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Picasso.with(mContext).load(imageUrls.get(index)).into(imageView);
@@ -185,13 +175,19 @@ public class FeatheredFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_feathered, container, false);
         content_view = (LinearLayout)view.findViewById(R.id.content);
         bannerView = (BannerView) view.findViewById(R.id.banners);
-
+        btnSearch = (ImageButton)view.findViewById(R.id.btn_search);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         initBanners();
         initViews();
 
@@ -201,7 +197,7 @@ public class FeatheredFragment extends BaseFragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFeatheredFragmentInteraction(uri);
         }
     }
 
@@ -246,6 +242,6 @@ public class FeatheredFragment extends BaseFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFeatheredFragmentInteraction(Uri uri);
     }
 }

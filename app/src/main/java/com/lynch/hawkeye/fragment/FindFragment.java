@@ -1,7 +1,11 @@
 package com.lynch.hawkeye.fragment;
 
 import android.app.Fragment;
+import android.content.ComponentName;
+import android.content.ContentProvider;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +16,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.utils.Utils;
@@ -50,6 +55,7 @@ public class FindFragment extends Fragment {
             "http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg",
             "http://img.kaiyanapp.com/a2fc6d32ac0b4f2842fb3d545d06f09b.jpeg");
 
+    private List<String> tags = Arrays.asList("#时尚","#创意","#音乐","#旅行","#生活","#萌宠","#游戏","#动画");
     private OnFragmentInteractionListener mListener;
 
     public FindFragment() {
@@ -104,15 +110,34 @@ public class FindFragment extends Fragment {
             layout.setLayoutParams(lparams);
 
             for (int item = 0; item < 2; item++) {
+                RelativeLayout relativeLayout = new RelativeLayout(context);
+                LinearLayout.LayoutParams reParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                reParams.weight = 0.5f;
+                relativeLayout.setLayoutParams(reParams);
+
                 ImageView imageView = new ImageView(context);
                 LinearLayout.LayoutParams ilps = new LinearLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.MATCH_PARENT,Utils.dip2px(context, 150));
-                ilps.weight = 0.4f;
+                        LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+                //ilps.weight = 0.4f;
                 imageView.setLayoutParams(ilps);
                 imageView.setPadding(5,5,5,5);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 Picasso.with(context).load(imageUrls.get(index * 2 + item)).into(imageView);
-                layout.addView(imageView);
+
+                TextView textView = new TextView(context);
+                RelativeLayout.LayoutParams textParams = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+                textParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                textView.setLayoutParams(textParams);
+                textView.setTextSize(18);
+//                textView.setTextColor(R.color.white);
+                textView.setTextColor(Color.rgb(255, 255, 255));
+                textView.setText(tags.get(index * 2 + item));
+
+                relativeLayout.addView(imageView);
+                relativeLayout.addView(textView);
+                layout.addView(relativeLayout);
             }
             linearLayout.addView(layout);
         }
@@ -121,7 +146,7 @@ public class FindFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFindFragmentInteraction(uri);
         }
     }
 
@@ -154,6 +179,6 @@ public class FindFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFindFragmentInteraction(Uri uri);
     }
 }

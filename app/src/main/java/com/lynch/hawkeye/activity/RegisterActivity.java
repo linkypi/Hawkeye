@@ -1,10 +1,8 @@
 package com.lynch.hawkeye.activity;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.lynch.hawkeye.R;
-import com.lynch.hawkeye.utils.AppContext;
+import com.lynch.hawkeye.config.AppContext;
 import com.lynch.hawkeye.utils.Utils;
 import com.lynch.hawkeye.utils.Validator;
 import com.umeng.socialize.bean.SHARE_MEDIA;

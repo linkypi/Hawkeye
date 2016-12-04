@@ -1,4 +1,4 @@
-package com.lynch.hawkeye;
+package com.lynch.hawkeye.activity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.component.BannerView;
 import com.squareup.picasso.Picasso;
 

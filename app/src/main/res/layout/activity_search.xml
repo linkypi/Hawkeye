@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.lynch.hawkeye.activity.SearchActivity">
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.lynch.hawkeye.component.SearchEditText
+                android:layout_weight=".9"
+                android:id="@+id/icet_search"
+                style="@style/StyleEditText" />
+            <Button
+                android:text="取消"
+                android:id="@+id/btn_cancel"
+                android:layout_weight=".1"
+                android:background="@null"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <TextView
+            android:gravity="center"
+            android:text="-热门搜索-"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+            <LinearLayout
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+                <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                android:background="#bababa"
+                android:text="脱 口 秀"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="60dp"
+                android:layout_height="25dp" />
+                <Button
+                android:background="#bababa"
+                android:layout_marginLeft="10dp"
+                android:text="城 会 玩"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="60dp"
+                android:layout_height="25dp" />
+                <Button
+                android:background="#bababa"
+                android:layout_marginLeft="10dp"
+                android:text="6 6 6"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="50dp"
+                android:layout_height="25dp" />
+                <Button
+                android:background="#bababa"
+                android:layout_marginLeft="10dp"
+                android:text="笑 Cry"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="60dp"
+                android:layout_height="25dp" />
+                <Button
+                android:background="#bababa"
+                android:layout_marginLeft="10dp"
+                android:text="漫 威"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="60dp"
+                android:layout_height="25dp" />
+                </LinearLayout>
+                <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                android:layout_marginLeft="30dp"
+                android:background="#bababa"
+                android:text="请 新"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="50dp"
+                android:layout_height="25dp" />
+                <Button
+                android:background="#bababa"
+                android:layout_marginLeft="10dp"
+                android:text="匠 心"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="40dp"
+                android:layout_height="25dp" />
+                <Button
+                android:background="#bababa"
+                android:layout_marginLeft="10dp"
+                android:text="V R"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="30dp"
+                android:layout_height="25dp" />
+                <Button
+                android:background="#bababa"
+                android:layout_marginLeft="10dp"
+                android:text="心 理 学"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="60dp"
+                android:layout_height="25dp" />
+                <Button
+                android:background="#bababa"
+                android:layout_marginLeft="10dp"
+                android:text="舞 蹈"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:layout_width="50dp"
+                android:layout_height="25dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

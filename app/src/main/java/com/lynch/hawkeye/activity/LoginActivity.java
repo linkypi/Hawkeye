@@ -37,7 +37,7 @@ import android.widget.Toast;
 
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.config.Credential;
-import com.lynch.hawkeye.utils.AppContext;
+import com.lynch.hawkeye.config.AppContext;
 import com.lynch.hawkeye.utils.SystemBarTintManager;
 import com.lynch.hawkeye.utils.Validator;
 import com.umeng.socialize.PlatformConfig;

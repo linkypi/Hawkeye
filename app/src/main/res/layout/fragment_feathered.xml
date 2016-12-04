@@ -12,7 +12,7 @@
         <include layout="@layout/layout_feathered_header"/>
         <com.lynch.hawkeye.component.BannerView
             android:id="@+id/banners"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:layout_width="match_parent"
             >
         </com.lynch.hawkeye.component.BannerView>

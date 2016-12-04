@@ -57,14 +57,18 @@
         <activity
             android:name=".activity.GuideActivity"
             android:label="@string/title_activity_guide"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.RegisterActivity" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
 
         <!-- *************************    分享相关的注册 START **************************** -->
         <!-- 腾讯SSO授权的Activity注册 -->
@@ -99,8 +103,11 @@
             android:excludeFromRecents="true" />
         <!-- *************************    分享相关的注册 END **************************** -->
 
-        <activity android:name=".activity.VideoActivity" />
-        <activity android:name=".TestActivity"></activity>
+        <activity
+            android:name=".activity.VideoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

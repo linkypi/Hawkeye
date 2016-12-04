@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -23,7 +22,7 @@ import com.lynch.hawkeye.activity.LoginActivity;
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.component.RoundImageView;
 import com.lynch.hawkeye.component.SelectPhotoPopupWindow;
-import com.lynch.hawkeye.utils.AppContext;
+import com.lynch.hawkeye.config.AppContext;
 import com.lynch.hawkeye.utils.Utils;
 import com.lynch.hawkeye.utils.Validator;
 
@@ -241,7 +240,7 @@ public class MineFragment extends BaseFragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onMineFragmentInteraction(uri);
         }
     }
 
@@ -274,6 +273,6 @@ public class MineFragment extends BaseFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onMineFragmentInteraction(Uri uri);
     }
 }
