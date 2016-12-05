@@ -26,9 +26,10 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             imagecontrol:border_thickness="1dp"
-            android:src="@drawable/user_128"
+            android:src="@drawable/unlogin_user_128"
             />
         <Button
+            android:id="@+id/btn_username"
             android:layout_gravity="center"
             android:background="@null"
             android:textColor="#ffffffff"

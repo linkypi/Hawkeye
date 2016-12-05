@@ -13,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -43,6 +45,7 @@ public class VideoActivity extends BaseActivity {
     private TextView collect_count,share_count,comment_count;
     private LinearLayout linearLayout;
     private RoundImageView imageProducer;
+    private RelativeLayout layoutBack ;
     private List<String> producerImageUrls = Arrays.asList(
             "http://img.kaiyanapp.com/f76d214f94c4120b5ce770099051b49c.jpeg",
             "http://img.kaiyanapp.com/ef6c59b92b487c6bb1e839589bf59876.jpeg",
@@ -67,12 +70,20 @@ public class VideoActivity extends BaseActivity {
         share_count = (TextView)findViewById(R.id.share_count);
         comment_count = (TextView)findViewById(R.id.comment_count);
         imageProducer = (RoundImageView)findViewById(R.id.img_producer);
+        layoutBack = (RelativeLayout)findViewById(R.id.layout_video_back);
 
         imagCollect.setTag(false);
         imagCollect.setOnClickListener(new OnImageViewClickListener());
         imgShare.setOnClickListener(new OnImageViewClickListener());
         imgComment.setOnClickListener(new OnImageViewClickListener());
         imgDownload.setOnClickListener(new OnImageViewClickListener());
+        layoutBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoActivity.this ,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Intent intent = getIntent();
         Dto dto = (Dto)intent.getSerializableExtra("data");
@@ -85,9 +96,12 @@ public class VideoActivity extends BaseActivity {
 //            IjkVideoView ijkPlayer = (IjkVideoView) findViewById(R.id.videoplayer);
 //            ijkPlayer.setVideoURI(mVideoUri);
 //            ijkPlayer.start();
-
-
             JCVideoPlayerStandard jcVideoPlayerStandard = (JCVideoPlayerStandard) findViewById(R.id.videoplayer);
+
+//            ImageButton imageButton = new ImageButton(this);
+//            imageButton.setBackground(R.drawable.arrow_left_32);
+//            LinearLayout.LayoutParams ilps = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+//            imageButton.setLayoutParams(ilps);
 //            jcVideoPlayerStandard.startFullscreen(VideoActivity.this,JCVideoPlayerStandard.class,url,title);
             jcVideoPlayerStandard.setUp(dto.getUrl(), JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, dto.getTitle());
         }

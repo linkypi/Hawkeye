@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -53,6 +56,7 @@ public class MineFragment extends BaseFragment {
     private static final String PHOTO_FILE_NAME = "temp_photo.jpg";
     private static Bitmap image;
     private  File tempFile;
+    private Button btnUserName;
 
     private OnFragmentInteractionListener mListener;
     private SelectPhotoPopupWindow popupWindow;
@@ -95,6 +99,7 @@ public class MineFragment extends BaseFragment {
         view = inflater.inflate(R.layout.fragment_mine, container, false);
         head_portrait = (RoundImageView)view.findViewById(R.id.head_portrait);
         btn_ip = (Button)view.findViewById(R.id.btn_ip);
+        btnUserName = (Button)view.findViewById(R.id.btn_username);
 
         btn_ip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +146,15 @@ public class MineFragment extends BaseFragment {
             }
         });
 
+        if(AppContext.hasLogin){
+            Drawable userLogo = getContext().getDrawable(R.drawable.login_user_128);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                head_portrait.setBackgroundDrawable(userLogo);
+            }else{
+                head_portrait.setBackground(userLogo);
+            }
+            btnUserName.setText("用户1");
+        }
         return view;
     }
     //为弹出窗口实现监听类

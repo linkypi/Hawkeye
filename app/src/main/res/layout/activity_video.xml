@@ -17,11 +17,28 @@
             <!--android:layout_height="250dp"-->
             <!--android:layout_gravity="center">-->
         <!--</tv.danmaku.ijk.media.sample.widget.media.IjkVideoView>-->
-
-        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
-            android:id="@+id/videoplayer"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"/>
+            android:layout_height="250dp">
+            <RelativeLayout
+                android:background="#ffffff"
+                android:id="@+id/layout_video_back"
+                android:gravity="center"
+                android:layout_margin="8dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+                <ImageButton
+                    android:background="@drawable/arrow_left_32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+                android:id="@+id/videoplayer"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"/>
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/video_background"
             android:paddingLeft="10dp"
