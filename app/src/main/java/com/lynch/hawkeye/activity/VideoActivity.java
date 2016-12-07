@@ -1,17 +1,21 @@
 package com.lynch.hawkeye.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.Image;
+import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,31 +25,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.dl7.player.media.IjkPlayerView;
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.component.RoundImageView;
 import com.lynch.hawkeye.model.Dto;
-import com.lynch.hawkeye.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+//import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class VideoActivity extends BaseActivity {
 
-    JCVideoPlayer.JCAutoFullscreenListener sensorEventListener;
-    SensorManager sensorManager;
+//    JCVideoPlayer.JCAutoFullscreenListener sensorEventListener;
+    private SensorManager sensorManager;
     private ImageView imagCollect,imgShare,imgComment,imgDownload;
     private TextView collect_count,share_count,comment_count;
     private LinearLayout linearLayout;
     private RoundImageView imageProducer;
     private RelativeLayout layoutBack ;
+    private IjkPlayerView playerView;
     private List<String> producerImageUrls = Arrays.asList(
             "http://img.kaiyanapp.com/f76d214f94c4120b5ce770099051b49c.jpeg",
             "http://img.kaiyanapp.com/ef6c59b92b487c6bb1e839589bf59876.jpeg",
@@ -55,13 +57,20 @@ public class VideoActivity extends BaseActivity {
             "http://img.kaiyanapp.com/7f6daf8fefdc124f00d742e640b72088.jpeg"
     );
 
+//    static {
+//        System.loadLibrary("ijkffmpeg");
+//        System.loadLibrary("ijksdl");
+//        System.loadLibrary("ijkplayer");
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
+//        sensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
+//        setSupportActionBar();
+
         imagCollect = (ImageView)findViewById(R.id.img_collect);
         imgComment = (ImageView)findViewById(R.id.img_comment);
         imgDownload = (ImageView)findViewById(R.id.img_download);
@@ -71,6 +80,7 @@ public class VideoActivity extends BaseActivity {
         comment_count = (TextView)findViewById(R.id.comment_count);
         imageProducer = (RoundImageView)findViewById(R.id.img_producer);
         layoutBack = (RelativeLayout)findViewById(R.id.layout_video_back);
+        playerView = (IjkPlayerView) findViewById(R.id.videoplayer);
 
         imagCollect.setTag(false);
         imagCollect.setOnClickListener(new OnImageViewClickListener());
@@ -87,24 +97,7 @@ public class VideoActivity extends BaseActivity {
 
         Intent intent = getIntent();
         Dto dto = (Dto)intent.getSerializableExtra("data");
-        if(!Utils.isNullOrEmpty(dto.getUrl())){
-            TextView textView = (TextView)findViewById(R.id.video_title);
-            textView.setText(dto.getTitle());
-
-//            IjkMediaPlayer.loadLibrariesOnce(null);
-//            IjkMediaPlayer.native_profileBegin("libijkplayer.so");
-//            IjkVideoView ijkPlayer = (IjkVideoView) findViewById(R.id.videoplayer);
-//            ijkPlayer.setVideoURI(mVideoUri);
-//            ijkPlayer.start();
-            JCVideoPlayerStandard jcVideoPlayerStandard = (JCVideoPlayerStandard) findViewById(R.id.videoplayer);
-
-//            ImageButton imageButton = new ImageButton(this);
-//            imageButton.setBackground(R.drawable.arrow_left_32);
-//            LinearLayout.LayoutParams ilps = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-//            imageButton.setLayoutParams(ilps);
-//            jcVideoPlayerStandard.startFullscreen(VideoActivity.this,JCVideoPlayerStandard.class,url,title);
-            jcVideoPlayerStandard.setUp(dto.getUrl(), JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, dto.getTitle());
-        }
+        initPlayer(dto);
 
         //加载背景图片
         linearLayout = (LinearLayout)findViewById(R.id.video_background);
@@ -114,6 +107,45 @@ public class VideoActivity extends BaseActivity {
         Random random = new Random();
         int index = random.nextInt(producerImageUrls.size()-1);
         Picasso.with(this).load(producerImageUrls.get(index)).into(imageProducer);
+    }
+
+    private void initPlayer(Dto data){
+
+        //if(!Utils.isNullOrEmpty(data.getUrl())){
+        TextView textView = (TextView)findViewById(R.id.video_title);
+        textView.setText(data.getTitle());
+
+//        MediaMetadataRetriever mmr=new MediaMetadataRetriever();
+//        mmr.setDataSource(data.getUrl(), new HashMap<String, String>());
+//        Bitmap bitmap=mmr.getFrameAtTime();
+
+//        FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
+//        mmr.setDataSource(data.getUrl());
+//        mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
+//        mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
+//        Bitmap bitmap = mmr.getFrameAtTime(2000*1000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST); // frame at 2 seconds
+//        mmr.release();
+//        if (bitmap.getWidth() > 640) {// 如果图片宽度规格超过640px,则进行压缩
+//            bitmap = ThumbnailUtils.extractThumbnail(bitmap,
+//                    640, 480,ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+//        }
+//        playerView.mPlayerThumb.setImageBitmap( bitmap);
+
+
+        //  以下为配置接口，选择需要的调用
+//        Picasso.with(this).load("http://img.kaiyanapp.com/58a5de91628e61efb969a71fdad52c99.jpeg?imageMogr2/quality/100")
+//                .into(playerView.mPlayerThumb);    // 显示界面图
+        playerView.init()              // 初始化，必须先调用
+                .setTitle(data.getTitle())  // 设置标题，全屏时显示
+                .setSkipTip(1000*60*1)  // 设置跳转提示
+                .enableOrientation()    // 使能重力翻转
+                .setVideoPath(data.getUrl())    // 设置视频Url，单个视频源可用这个
+                //.setVideoSource(null, VIDEO_URL, VIDEO_URL, VIDEO_URL, null)    // 设置视频Url，多个视频源用这个
+                .setMediaQuality(IjkPlayerView.MEDIA_QUALITY_HIGH)  // 指定初始视频源
+        ;
+                //.enableDanmaku();        // 使能弹幕功能
+                //.setDanmakuSource(getResources().openRawResource(R.raw.comments))   // 添加弹幕资源，必须在enableDanmaku()后调用
+//                .start();   // 启动播放
     }
 
     public class PicassoTarget implements Target
@@ -193,22 +225,39 @@ public class VideoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Sensor accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(sensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        playerView.onResume();
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        playerView.onPause();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        playerView.onDestroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        playerView.configurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (playerView.handleVolumeKey(keyCode)) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    @Override
     public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
+        if (playerView.onBackPressed()) {
             return;
         }
         super.onBackPressed();
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //JCVideoPlayer.releaseAllVideos();
-        sensorManager.unregisterListener(sensorEventListener);
     }
 
     @Override

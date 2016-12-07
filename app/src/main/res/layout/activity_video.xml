@@ -33,7 +33,11 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
 
-            <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            <!--<fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard-->
+                <!--android:id="@+id/videoplayer"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="250dp"/>-->
+            <com.dl7.player.media.IjkPlayerView
                 android:id="@+id/videoplayer"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"/>
