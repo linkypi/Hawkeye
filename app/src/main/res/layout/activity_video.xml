@@ -18,6 +18,7 @@
             <!--android:layout_gravity="center">-->
         <!--</tv.danmaku.ijk.media.sample.widget.media.IjkVideoView>-->
         <RelativeLayout
+            android:id="@+id/layout_player"
             android:layout_width="match_parent"
             android:layout_height="250dp">
             <RelativeLayout
@@ -39,8 +40,8 @@
                 <!--android:layout_height="250dp"/>-->
             <com.dl7.player.media.IjkPlayerView
                 android:id="@+id/videoplayer"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"/>
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"/>
         </RelativeLayout>
 
         <LinearLayout

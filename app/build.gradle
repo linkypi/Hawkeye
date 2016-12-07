@@ -24,13 +24,13 @@ android {
         }
     }
 
-    splits {
-        abi{
-            enable true
-            reset()
-            include 'armeabi-v7a','x86'
-        }
-    }
+//    splits {
+//        abi{
+//            enable true
+//            reset()
+//            include 'armeabi-v7a','x86'
+//        }
+//    }
 }
 
 dependencies {
@@ -57,7 +57,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     compile 'com.github.Rukey7:IjkPlayerView:v1.0.2'
-//    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
+    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
 
     testCompile 'junit:junit:4.12'
 }

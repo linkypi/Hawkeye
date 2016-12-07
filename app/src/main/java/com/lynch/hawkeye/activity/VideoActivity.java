@@ -1,6 +1,7 @@
 package com.lynch.hawkeye.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,9 +15,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
+import android.view.OrientationEventListener;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,12 +35,16 @@ import com.dl7.player.media.IjkPlayerView;
 import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.component.RoundImageView;
 import com.lynch.hawkeye.model.Dto;
+import com.lynch.hawkeye.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import wseemann.media.FFmpegMediaMetadataRetriever;
 
 //import wseemann.media.FFmpegMediaMetadataRetriever;
 
@@ -48,6 +58,15 @@ public class VideoActivity extends BaseActivity {
     private RoundImageView imageProducer;
     private RelativeLayout layoutBack ;
     private IjkPlayerView playerView;
+    private RelativeLayout layoutPlayer;
+    private int height;
+
+//    private OrientationEventListener mOrientationListener;
+//    // screen orientation listener
+//    private boolean mScreenProtrait = true;
+//    private boolean mCurrentOrient = false;
+//    abstract protected void OrientationChanged(int orientation);
+
     private List<String> producerImageUrls = Arrays.asList(
             "http://img.kaiyanapp.com/f76d214f94c4120b5ce770099051b49c.jpeg",
             "http://img.kaiyanapp.com/ef6c59b92b487c6bb1e839589bf59876.jpeg",
@@ -67,7 +86,7 @@ public class VideoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+//        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 //        sensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
 //        setSupportActionBar();
 
@@ -81,6 +100,8 @@ public class VideoActivity extends BaseActivity {
         imageProducer = (RoundImageView)findViewById(R.id.img_producer);
         layoutBack = (RelativeLayout)findViewById(R.id.layout_video_back);
         playerView = (IjkPlayerView) findViewById(R.id.videoplayer);
+        layoutPlayer = (RelativeLayout)findViewById(R.id.layout_player);
+        height = layoutPlayer.getLayoutParams().height;
 
         imagCollect.setTag(false);
         imagCollect.setOnClickListener(new OnImageViewClickListener());
@@ -99,6 +120,8 @@ public class VideoActivity extends BaseActivity {
         Dto dto = (Dto)intent.getSerializableExtra("data");
         initPlayer(dto);
 
+//        startOrientationChangeListener();
+
         //加载背景图片
         linearLayout = (LinearLayout)findViewById(R.id.video_background);
         Picasso.with(this).load("http://img.kaiyanapp.com/58a5de91628e61efb969a71fdad52c99.jpeg?imageMogr2/quality/100")
@@ -107,6 +130,31 @@ public class VideoActivity extends BaseActivity {
         Random random = new Random();
         int index = random.nextInt(producerImageUrls.size()-1);
         Picasso.with(this).load(producerImageUrls.get(index)).into(imageProducer);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+
+        super.onConfigurationChanged(newConfig);
+        playerView.configurationChanged(newConfig);
+        //切换为竖屏
+
+        if (newConfig.orientation == this.getResources().getConfiguration().ORIENTATION_PORTRAIT) {
+            setPlayerHeight(height);
+        }
+        //切换为横屏
+        if (newConfig.orientation == this.getResources().getConfiguration().ORIENTATION_LANDSCAPE) {
+
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            setPlayerHeight(dm.heightPixels);
+        }
+    }
+
+    private void setPlayerHeight(int height){
+        ViewGroup.LayoutParams params = layoutPlayer.getLayoutParams();
+        params.height = height;
+        layoutPlayer.setLayoutParams(params);
     }
 
     private void initPlayer(Dto data){
@@ -129,7 +177,17 @@ public class VideoActivity extends BaseActivity {
 //            bitmap = ThumbnailUtils.extractThumbnail(bitmap,
 //                    640, 480,ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 //        }
-//        playerView.mPlayerThumb.setImageBitmap( bitmap);
+        FFmpegMediaMetadataRetriever retriever = new FFmpegMediaMetadataRetriever();
+        try {
+            retriever.setDataSource(data.getUrl());
+            //here 5 means frame at the 5th sec.
+            Bitmap bitmap = retriever.getFrameAtTime(5);
+            playerView.mPlayerThumb.setImageBitmap( bitmap);
+        } catch (Exception ex) {
+            // Assume this is a corrupt video file
+            ex.printStackTrace();
+        }
+
 
 
         //  以下为配置接口，选择需要的调用
@@ -142,11 +200,38 @@ public class VideoActivity extends BaseActivity {
                 .setVideoPath(data.getUrl())    // 设置视频Url，单个视频源可用这个
                 //.setVideoSource(null, VIDEO_URL, VIDEO_URL, VIDEO_URL, null)    // 设置视频Url，多个视频源用这个
                 .setMediaQuality(IjkPlayerView.MEDIA_QUALITY_HIGH)  // 指定初始视频源
-        ;
+                ;
                 //.enableDanmaku();        // 使能弹幕功能
                 //.setDanmakuSource(getResources().openRawResource(R.raw.comments))   // 添加弹幕资源，必须在enableDanmaku()后调用
 //                .start();   // 启动播放
     }
+
+//    private final void startOrientationChangeListener() {
+//        mOrientationListener = new OrientationEventListener(this) {
+//            @Override
+//            public void onOrientationChanged(int rotation) {
+//                if (((rotation >= 0) && (rotation <= 45)) || (rotation >= 315)||((rotation>=135)&&(rotation<=225))) {//portrait
+//                    mCurrentOrient = true;
+//                    if(mCurrentOrient!=mScreenProtrait)
+//                    {
+//                        mScreenProtrait = mCurrentOrient;
+//                        OrientationChanged(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+////                        Log.d(TAG, "Screen orientation changed from Landscape to Portrait!");
+//                    }
+//                }
+//                else if (((rotation > 45) && (rotation < 135))||((rotation>225)&&(rotation<315))) {//landscape
+//                    mCurrentOrient = false;
+//                    if(mCurrentOrient!=mScreenProtrait)
+//                    {
+//                        mScreenProtrait = mCurrentOrient;
+//                        OrientationChanged(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//                        //Log.d(TAG, "Screen orientation changed from Portrait to Landscape!");
+//                    }
+//                }
+//            }
+//        };
+//        mOrientationListener.enable();
+//    }
 
     public class PicassoTarget implements Target
     {
@@ -239,11 +324,11 @@ public class VideoActivity extends BaseActivity {
         playerView.onDestroy();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        playerView.configurationChanged(newConfig);
-    }
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        playerView.configurationChanged(newConfig);
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

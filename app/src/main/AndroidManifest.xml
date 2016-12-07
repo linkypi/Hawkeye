@@ -104,6 +104,7 @@
         <!-- *************************    分享相关的注册 END **************************** -->
 
         <activity
+            android:configChanges="orientation|screenSize"
             android:name=".activity.VideoActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.TestActivity" />
