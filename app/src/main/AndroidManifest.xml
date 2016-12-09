@@ -104,11 +104,12 @@
         <!-- *************************    分享相关的注册 END **************************** -->
 
         <activity
-            android:configChanges="orientation|screenSize"
             android:name=".activity.VideoActivity"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.TestActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.SettingActivity"></activity>
     </application>
 
 </manifest>

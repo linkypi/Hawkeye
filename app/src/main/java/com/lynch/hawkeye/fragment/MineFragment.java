@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.lynch.hawkeye.activity.LoginActivity;
@@ -26,6 +27,8 @@ import com.lynch.hawkeye.R;
 import com.lynch.hawkeye.component.RoundImageView;
 import com.lynch.hawkeye.component.SelectPhotoPopupWindow;
 import com.lynch.hawkeye.config.AppContext;
+import com.lynch.hawkeye.config.Constants;
+import com.lynch.hawkeye.model.LoginDto;
 import com.lynch.hawkeye.utils.Utils;
 import com.lynch.hawkeye.utils.Validator;
 
@@ -39,7 +42,7 @@ import java.io.File;
  * Use the {@link MineFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,6 +60,7 @@ public class MineFragment extends BaseFragment {
     private static Bitmap image;
     private  File tempFile;
     private Button btnUserName;
+    private ImageButton btnSetting;
 
     private OnFragmentInteractionListener mListener;
     private SelectPhotoPopupWindow popupWindow;
@@ -100,63 +104,70 @@ public class MineFragment extends BaseFragment {
         head_portrait = (RoundImageView)view.findViewById(R.id.head_portrait);
         btn_ip = (Button)view.findViewById(R.id.btn_ip);
         btnUserName = (Button)view.findViewById(R.id.btn_username);
+        btnSetting = (ImageButton)view.findViewById(R.id.btn_setting);
 
-        btn_ip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final EditText editText = new EditText(mContext);
-                new AlertDialog.Builder(mContext)
-                        .setTitle("请输入IP")
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .setView(editText)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String ip = editText.getText().toString();
-                                if(Utils.isNullOrEmpty(ip)) return;
-
-                                if(Validator.isIPAddr(ip)){
-                                    AppContext.ip = "http://"+ ip;
-                                    showMsg("设置成功.");
-                                    return;
-                                }
-                                showMsg("IP地址无效.");
-                            }
-                        })
-                        .setNegativeButton("取消", null)
-                        .show();
-            }
-        });
-
-        head_portrait.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(AppContext.hasLogin){
-                    if(popupWindow==null)
-                    {   popupWindow = new SelectPhotoPopupWindow(view.getContext(), itemsOnClick); }
-
-                    popupWindow.showAtLocation(view.findViewById(R.id.bottom),
-                            Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                }else{
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-
-            }
-        });
+        btn_ip.setOnClickListener(this);
+        head_portrait.setOnClickListener(this);
+        btnSetting.setOnClickListener(this);
 
         if(AppContext.hasLogin){
-            Drawable userLogo = getContext().getDrawable(R.drawable.login_user_128);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                head_portrait.setBackgroundDrawable(userLogo);
-            }else{
-                head_portrait.setBackground(userLogo);
-            }
-            btnUserName.setText("用户1");
+            setUserInfo("Lynch");
         }
         return view;
     }
+
+   @Override
+    public void onClick(View v){
+       switch (v.getId()){
+           case R.id.head_portrait:
+               portraitClick();
+               break;
+           case R.id.btn_ip:
+               ipClick();
+               break;
+           case R.id.btn_setting:
+
+               break;
+       }
+    }
+    
+    private void ipClick(){
+        final EditText editText = new EditText(mContext);
+        new AlertDialog.Builder(mContext)
+                .setTitle("请输入IP")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setView(editText)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String ip = editText.getText().toString();
+                        if(Utils.isNullOrEmpty(ip)) return;
+
+                        if(Validator.isIPAddr(ip)){
+                            AppContext.ip = "http://"+ ip;
+                            showMsg("设置成功.");
+                            return;
+                        }
+                        showMsg("IP地址无效.");
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    private void portraitClick(){
+        if(AppContext.hasLogin){
+            if(popupWindow==null)
+            {   popupWindow = new SelectPhotoPopupWindow(view.getContext(), itemsOnClick); }
+
+            popupWindow.showAtLocation(view.findViewById(R.id.bottom),
+                    Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        }else{
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivityForResult(intent, Constants.Login_Callback);
+        }
+    }
+
     //为弹出窗口实现监听类
     private View.OnClickListener itemsOnClick = new View.OnClickListener(){
 
@@ -204,12 +215,30 @@ public class MineFragment extends BaseFragment {
                     e.printStackTrace();
                 }
                 break;
+            case Constants.Login_Callback:
+                LoginDto loginDto = (LoginDto)data.getExtras().getSerializable("data");
+                AppContext.hasLogin = loginDto.getLoginSeccess();
+                if(!AppContext.hasLogin) return;
+
+                setUserInfo(loginDto.getUserName());
+                break;
             default:
                 break;
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void setUserInfo(String username){
+        btnUserName.setText(username);
+        Drawable userLogo = getContext().getDrawable(R.drawable.login_user_128);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            head_portrait.setBackgroundDrawable(userLogo);
+        }else{
+            head_portrait.setBackground(userLogo);
+        }
+    }
+
     private void crop(Uri uri) {
         // 裁剪图片意图
         Intent intent = new Intent("com.android.camera.action.CROP");

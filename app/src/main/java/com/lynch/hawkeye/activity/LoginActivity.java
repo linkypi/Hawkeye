@@ -36,8 +36,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lynch.hawkeye.R;
+import com.lynch.hawkeye.config.Constants;
 import com.lynch.hawkeye.config.Credential;
 import com.lynch.hawkeye.config.AppContext;
+import com.lynch.hawkeye.model.Dto;
+import com.lynch.hawkeye.model.LoginDto;
 import com.lynch.hawkeye.utils.SystemBarTintManager;
 import com.lynch.hawkeye.utils.Validator;
 import com.umeng.socialize.PlatformConfig;
@@ -516,18 +519,17 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
+            boolean ok = false;
             if (success) {
-                AppContext.hasLogin = true;
-                Toast.makeText(getApplicationContext(),getString(R.string.success_login),
-                        Toast.LENGTH_SHORT).show();
-                finish();
+                ok = true;
+                showMsg(getString(R.string.success_login));
             } else {
-                Toast.makeText(getApplicationContext(),getString(R.string.failed_login),
-                        Toast.LENGTH_SHORT).show();
-//                mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                mPasswordView.requestFocus();
+                showMsg(getString(R.string.failed_login));
             }
+            LoginDto data = new LoginDto(ok,"Lynch.");
+            Intent intent = LoginActivity.this.getIntent().putExtra("data",data);
+            setResult(Constants.Login_Callback,intent);
+            finish();
         }
 
         @Override

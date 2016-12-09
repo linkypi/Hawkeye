@@ -44,7 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import wseemann.media.FFmpegMediaMetadataRetriever;
+//import wseemann.media.FFmpegMediaMetadataRetriever;
 
 //import wseemann.media.FFmpegMediaMetadataRetriever;
 
@@ -60,12 +60,6 @@ public class VideoActivity extends BaseActivity {
     private IjkPlayerView playerView;
     private RelativeLayout layoutPlayer;
     private int height;
-
-//    private OrientationEventListener mOrientationListener;
-//    // screen orientation listener
-//    private boolean mScreenProtrait = true;
-//    private boolean mCurrentOrient = false;
-//    abstract protected void OrientationChanged(int orientation);
 
     private List<String> producerImageUrls = Arrays.asList(
             "http://img.kaiyanapp.com/f76d214f94c4120b5ce770099051b49c.jpeg",
@@ -177,16 +171,17 @@ public class VideoActivity extends BaseActivity {
 //            bitmap = ThumbnailUtils.extractThumbnail(bitmap,
 //                    640, 480,ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 //        }
-        FFmpegMediaMetadataRetriever retriever = new FFmpegMediaMetadataRetriever();
-        try {
-            retriever.setDataSource(data.getUrl());
-            //here 5 means frame at the 5th sec.
-            Bitmap bitmap = retriever.getFrameAtTime(5);
-            playerView.mPlayerThumb.setImageBitmap( bitmap);
-        } catch (Exception ex) {
-            // Assume this is a corrupt video file
-            ex.printStackTrace();
-        }
+
+//        FFmpegMediaMetadataRetriever retriever = new FFmpegMediaMetadataRetriever();
+//        try {
+//            retriever.setDataSource(data.getUrl());
+//            //here 5 means frame at the 5th sec.
+//            Bitmap bitmap = retriever.getFrameAtTime(5);
+//            playerView.mPlayerThumb.setImageBitmap( bitmap);
+//        } catch (Exception ex) {
+//            // Assume this is a corrupt video file
+//            ex.printStackTrace();
+//        }
 
 
 
@@ -205,33 +200,6 @@ public class VideoActivity extends BaseActivity {
                 //.setDanmakuSource(getResources().openRawResource(R.raw.comments))   // 添加弹幕资源，必须在enableDanmaku()后调用
 //                .start();   // 启动播放
     }
-
-//    private final void startOrientationChangeListener() {
-//        mOrientationListener = new OrientationEventListener(this) {
-//            @Override
-//            public void onOrientationChanged(int rotation) {
-//                if (((rotation >= 0) && (rotation <= 45)) || (rotation >= 315)||((rotation>=135)&&(rotation<=225))) {//portrait
-//                    mCurrentOrient = true;
-//                    if(mCurrentOrient!=mScreenProtrait)
-//                    {
-//                        mScreenProtrait = mCurrentOrient;
-//                        OrientationChanged(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-////                        Log.d(TAG, "Screen orientation changed from Landscape to Portrait!");
-//                    }
-//                }
-//                else if (((rotation > 45) && (rotation < 135))||((rotation>225)&&(rotation<315))) {//landscape
-//                    mCurrentOrient = false;
-//                    if(mCurrentOrient!=mScreenProtrait)
-//                    {
-//                        mScreenProtrait = mCurrentOrient;
-//                        OrientationChanged(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//                        //Log.d(TAG, "Screen orientation changed from Portrait to Landscape!");
-//                    }
-//                }
-//            }
-//        };
-//        mOrientationListener.enable();
-//    }
 
     public class PicassoTarget implements Target
     {

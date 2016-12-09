@@ -24,13 +24,13 @@ android {
         }
     }
 
-//    splits {
-//        abi{
-//            enable true
-//            reset()
-//            include 'armeabi-v7a','x86'
-//        }
-//    }
+    splits {
+        abi{
+            enable true
+            reset()
+            include 'armeabi-v7a','x86'
+        }
+    }
 }
 
 dependencies {
@@ -56,6 +56,8 @@ dependencies {
 //    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
     compile 'com.squareup.picasso:picasso:2.5.2'
 
+//    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.2'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.2'
     compile 'com.github.Rukey7:IjkPlayerView:v1.0.2'
     compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
 

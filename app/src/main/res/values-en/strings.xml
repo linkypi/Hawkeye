@@ -9,6 +9,7 @@
 
     <string name="title_activity_guide">GuideActivity</string>
     <string name="login_title" >Sign In</string>
+    <string name="setting_title">Setting</string>
     <string name="register_title" >Sign Up</string>
 
     <string name="error_invalid_account">phone/email is invalid</string>

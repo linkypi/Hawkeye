@@ -6,6 +6,7 @@
     <string name="error_field_required">该值不能为空</string>
 
     <string name="login_title" >登录</string>
+    <string name="setting_title">设置</string>
     <string name="register_title" >注册</string>
 
     <string name="action_sign_in_short">登录</string>
