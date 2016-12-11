@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.lynch.hawkeye.activity.LoginActivity;
 import com.lynch.hawkeye.R;
+import com.lynch.hawkeye.activity.SettingActivity;
 import com.lynch.hawkeye.component.RoundImageView;
 import com.lynch.hawkeye.component.SelectPhotoPopupWindow;
 import com.lynch.hawkeye.config.AppContext;
@@ -33,6 +34,7 @@ import com.lynch.hawkeye.utils.Utils;
 import com.lynch.hawkeye.utils.Validator;
 
 import java.io.File;
+import java.io.StringReader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,9 +112,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         head_portrait.setOnClickListener(this);
         btnSetting.setOnClickListener(this);
 
-        if(AppContext.hasLogin){
-            setUserInfo("Lynch");
-        }
+        setUserInfo(AppContext.hasLogin,"Lynch");
+
         return view;
     }
 
@@ -126,9 +127,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                ipClick();
                break;
            case R.id.btn_setting:
-
+               openSettingAct();
                break;
        }
+    }
+
+    private void openSettingAct(){
+        Intent intent = new Intent(this.getActivity(), SettingActivity.class);
+        startActivityForResult(intent,Constants.Login_Callback);
     }
     
     private void ipClick(){
@@ -217,10 +223,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case Constants.Login_Callback:
                 LoginDto loginDto = (LoginDto)data.getExtras().getSerializable("data");
-                AppContext.hasLogin = loginDto.getLoginSeccess();
-                if(!AppContext.hasLogin) return;
+                if(loginDto==null) return;
 
-                setUserInfo(loginDto.getUserName());
+                AppContext.hasLogin = loginDto.getLoginSeccess();
+//                if(AppContext.hasLogin)
+                setUserInfo(AppContext.hasLogin,loginDto.getUserName());
+
                 break;
             default:
                 break;
@@ -229,14 +237,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void setUserInfo(String username){
-        btnUserName.setText(username);
-        Drawable userLogo = getContext().getDrawable(R.drawable.login_user_128);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            head_portrait.setBackgroundDrawable(userLogo);
-        }else{
-            head_portrait.setBackground(userLogo);
+    private void setUserInfo(boolean login,String username){
+        int logo = R.drawable.login_user_128;
+        if(!login) {
+            logo = R.drawable.unlogin_user_128;
+            username ="未登录";
         }
+
+        btnUserName.setText(username);
+        BitmapDrawable userLogo = (BitmapDrawable)mContext.getDrawable(logo);
+        head_portrait.setImageBitmap(userLogo.getBitmap());
     }
 
     private void crop(Uri uri) {

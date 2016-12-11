@@ -44,14 +44,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-//import wseemann.media.FFmpegMediaMetadataRetriever;
-
-//import wseemann.media.FFmpegMediaMetadataRetriever;
+import qiu.niorgai.StatusBarCompat;
+import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class VideoActivity extends BaseActivity {
 
-//    JCVideoPlayer.JCAutoFullscreenListener sensorEventListener;
-    private SensorManager sensorManager;
     private ImageView imagCollect,imgShare,imgComment,imgDownload;
     private TextView collect_count,share_count,comment_count;
     private LinearLayout linearLayout;
@@ -70,19 +67,12 @@ public class VideoActivity extends BaseActivity {
             "http://img.kaiyanapp.com/7f6daf8fefdc124f00d742e640b72088.jpeg"
     );
 
-//    static {
-//        System.loadLibrary("ijkffmpeg");
-//        System.loadLibrary("ijksdl");
-//        System.loadLibrary("ijkplayer");
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-//        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-//        sensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
-//        setSupportActionBar();
+        /* 透明状态栏只有在 SDK >= 19 (Android 4.4) 才会生效. */
+        StatusBarCompat.translucentStatusBar(VideoActivity.this);
 
         imagCollect = (ImageView)findViewById(R.id.img_collect);
         imgComment = (ImageView)findViewById(R.id.img_comment);
@@ -113,8 +103,6 @@ public class VideoActivity extends BaseActivity {
         Intent intent = getIntent();
         Dto dto = (Dto)intent.getSerializableExtra("data");
         initPlayer(dto);
-
-//        startOrientationChangeListener();
 
         //加载背景图片
         linearLayout = (LinearLayout)findViewById(R.id.video_background);
@@ -153,37 +141,11 @@ public class VideoActivity extends BaseActivity {
 
     private void initPlayer(Dto data){
 
-        //if(!Utils.isNullOrEmpty(data.getUrl())){
         TextView textView = (TextView)findViewById(R.id.video_title);
         textView.setText(data.getTitle());
 
-//        MediaMetadataRetriever mmr=new MediaMetadataRetriever();
-//        mmr.setDataSource(data.getUrl(), new HashMap<String, String>());
-//        Bitmap bitmap=mmr.getFrameAtTime();
-
-//        FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-//        mmr.setDataSource(data.getUrl());
-//        mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
-//        mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
-//        Bitmap bitmap = mmr.getFrameAtTime(2000*1000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST); // frame at 2 seconds
-//        mmr.release();
-//        if (bitmap.getWidth() > 640) {// 如果图片宽度规格超过640px,则进行压缩
-//            bitmap = ThumbnailUtils.extractThumbnail(bitmap,
-//                    640, 480,ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
-//        }
-
-//        FFmpegMediaMetadataRetriever retriever = new FFmpegMediaMetadataRetriever();
-//        try {
-//            retriever.setDataSource(data.getUrl());
-//            //here 5 means frame at the 5th sec.
-//            Bitmap bitmap = retriever.getFrameAtTime(5);
-//            playerView.mPlayerThumb.setImageBitmap( bitmap);
-//        } catch (Exception ex) {
-//            // Assume this is a corrupt video file
-//            ex.printStackTrace();
-//        }
-
-
+        Bitmap bitmap = getThumbNail(data.getUrl());
+        playerView.mPlayerThumb.setImageBitmap(bitmap);
 
         //  以下为配置接口，选择需要的调用
 //        Picasso.with(this).load("http://img.kaiyanapp.com/58a5de91628e61efb969a71fdad52c99.jpeg?imageMogr2/quality/100")
@@ -192,6 +154,8 @@ public class VideoActivity extends BaseActivity {
                 .setTitle(data.getTitle())  // 设置标题，全屏时显示
                 .setSkipTip(1000*60*1)  // 设置跳转提示
                 .enableOrientation()    // 使能重力翻转
+                .EnableShare(true)
+                .showVideoMaskLayer(true)
                 .setVideoPath(data.getUrl())    // 设置视频Url，单个视频源可用这个
                 //.setVideoSource(null, VIDEO_URL, VIDEO_URL, VIDEO_URL, null)    // 设置视频Url，多个视频源用这个
                 .setMediaQuality(IjkPlayerView.MEDIA_QUALITY_HIGH)  // 指定初始视频源
@@ -199,6 +163,25 @@ public class VideoActivity extends BaseActivity {
                 //.enableDanmaku();        // 使能弹幕功能
                 //.setDanmakuSource(getResources().openRawResource(R.raw.comments))   // 添加弹幕资源，必须在enableDanmaku()后调用
 //                .start();   // 启动播放
+    }
+
+    /**
+     * 获取缩略图
+     * @param url
+     * @return
+     */
+    private Bitmap getThumbNail(String url){
+        FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
+        mmr.setDataSource(url);
+        mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
+        mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
+        Bitmap bitmap = mmr.getFrameAtTime(2000*1000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST); // frame at 2 seconds
+        mmr.release();
+        if (bitmap.getWidth() > 640) {// 如果图片宽度规格超过640px,则进行压缩
+            bitmap = ThumbnailUtils.extractThumbnail(bitmap,
+                    640, 480,ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+        }
+        return bitmap;
     }
 
     public class PicassoTarget implements Target
@@ -291,12 +274,6 @@ public class VideoActivity extends BaseActivity {
         super.onDestroy();
         playerView.onDestroy();
     }
-
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        playerView.configurationChanged(newConfig);
-//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

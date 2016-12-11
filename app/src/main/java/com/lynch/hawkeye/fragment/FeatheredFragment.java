@@ -43,6 +43,11 @@ public class FeatheredFragment extends BaseFragment {
     private static final String ARG_PARAM2 = "param2";
 
     private List<String> videos = Arrays.asList(
+            "/stronger.mp4",
+            "/banana.mp4",
+            "/sick.mp4",
+            "/secret.mp4",
+            "/maginrabbit.mp4",
             "/360.mov",
             "/cat.mp4",
             "/slide.mp4",
@@ -53,6 +58,11 @@ public class FeatheredFragment extends BaseFragment {
             "/pian.mp4"
     );
     private List<String> texts = Arrays.asList(
+            "弱者：做一个更强的人",
+            "修草坪的小黄人",
+            "长话短说，我病了",
+            "博物馆后面的大秘密",
+            "魔术师和兔子",
             "360°全景延时影片「复古巴黎」",
             "喂养猫的好奇心",
             "高山滑雪玩腻了，我们高空滑云",
@@ -69,6 +79,11 @@ public class FeatheredFragment extends BaseFragment {
     );
 
     private List<String> imageUrls = Arrays.asList(
+            "http://img.kaiyanapp.com/012a82e8d4547c33ff3861c82747a83e.jpeg?imageMogr2/quality/100",
+            "http://img.kaiyanapp.com/67edba495eee5e7f5c9a19a5963a3742.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/93caa3b7d2f174a29e862a41f0dd9f4d.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/173b7eb7e8ccffde842ef3585ce56bfa.jpeg?imageMogr2/quality/60",
+            "http://img.kaiyanapp.com/ac0ca8481abb8d3cde72240e45021aed.jpeg?imageMogr2/quality/100",
             "http://img.kaiyanapp.com/15fdc64c67ea45a1ed39f807c29cf2de.jpeg?imageMogr2/quality/60",
             "http://img.kaiyanapp.com/1d5cd526be9a751617efdf5e51bb6a2d.jpeg?imageMogr2/quality/60",
             "http://img.kaiyanapp.com/98637a768af28989e6722b3788a8175c.jpeg?imageMogr2/quality/60",
@@ -132,11 +147,11 @@ public class FeatheredFragment extends BaseFragment {
     }
     private void initViews(){
 
-        for (int index = 0; index < 8; index++) {
+        for (int index = 0; index < 12; index++) {
             RelativeLayout view = new RelativeLayout(mContext);
             //LayoutParams的类型由父控件决定
             LinearLayout.LayoutParams lps = new LinearLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 120));
+                    RelativeLayout.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 121));
             lps.gravity = Gravity.CENTER;
             view.setGravity(Gravity.CENTER);
             view.setLayoutParams(lps);
@@ -205,7 +220,7 @@ public class FeatheredFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         if (bannerView != null) {
-            bannerView.cancelTimer();
+            //bannerView.cancelTimer();
         }
     }
     @Override

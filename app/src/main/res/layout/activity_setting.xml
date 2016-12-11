@@ -21,12 +21,12 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_gravity="center"
-
             android:layout_width="match_parent"
             android:layout_height="30dp">
             <TextView
                 android:gravity="center|left"
                 android:text="清除缓存"
+                android:textSize="16dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -36,6 +36,65 @@
                 android:background="@drawable/arrow_right_32"
                 android:layout_height="match_parent" />
         </LinearLayout>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:background="#9c9c9c"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <TextView
+                android:gravity="center|left"
+                android:text="用户协议"
+                android:textSize="16dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/arrow_right_32"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:background="#9c9c9c"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <TextView
+                android:gravity="center|left"
+                android:text="关于我们"
+                android:textSize="16dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/arrow_right_32"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:background="#9c9c9c"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
 
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_marginTop="40dp"
+            android:text="退 出 登 录"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
     </LinearLayout>
 </LinearLayout>

@@ -59,7 +59,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, OnClickListener {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -93,9 +93,15 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
         // Set up the login form.
         mAccountView = (AutoCompleteTextView) findViewById(R.id.email);
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        LinearLayout layout_login_back = (LinearLayout) findViewById(R.id.layout_login_back);
+        Button btn_register = (Button)findViewById(R.id.btn_register);
+
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -107,38 +113,11 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-        /*login back*/
         mContext = this;
-        LinearLayout layout_login_back = (LinearLayout) findViewById(R.id.layout_login_back);
-        layout_login_back.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext,MainActivity.class);
-                startActivity(intent);
-                ((Activity)mContext).finish();
-            }
-        });
-        /* register */
-        Button btn_register = (Button)findViewById(R.id.btn_register);
-        btn_register.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent);
-                //overridePendingTransition (R.anim.in_from_right, R.anim.out_to_right);
-            }
-        });
+        mEmailSignInButton.setOnClickListener(this);
+        layout_login_back.setOnClickListener(this);
+        btn_register.setOnClickListener(this);
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
         try {
             PlatformConfig.setWeixin(Credential.WX_APPID, Credential.WX_APPSECRET);
             PlatformConfig.setSinaWeibo(Credential.Weibo_APPID, Credential.Wweibo_APPSECRET);
@@ -150,6 +129,27 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
     }
 
+    @Override
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.email_sign_in_button:
+                attemptLogin();
+                break;
+            case R.id.layout_login_back:
+                //                Intent intent = new Intent(mContext,MainActivity.class);
+//                startActivity(intent);
+                LoginDto data = new LoginDto(false,"");
+                Intent intent2 = LoginActivity.this.getIntent().putExtra("data",data);
+                setResult(Constants.Login_Callback,intent2);
+                finish();
+                break;
+            case R.id.btn_register:
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+                //overridePendingTransition (R.anim.in_from_right, R.anim.out_to_right);
+                break;
+        }
+    }
     /**
      * 将状态栏与标题栏颜色保持一致
      */
